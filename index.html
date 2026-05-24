@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ragsnation – Wear Your Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root { --ink:#0a0a0a; --chalk:#f5f0e8; --fire:#e8390e; --gold:#d4a017; --mid:#888; --card-bg:#141414; --green:#25D366; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--chalk);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
+.page{display:none;} .page.active{display:block;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(10,10,10,0.96);backdrop-filter:blur(12px);border-bottom:1px solid #222;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:4px;color:var(--chalk);cursor:pointer;}
+.logo span{color:var(--fire);}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+.nav-links a,.nav-links button{background:none;border:none;color:var(--mid);text-decoration:none;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;transition:color .2s;cursor:pointer;font-family:'Barlow',sans-serif;}
+.nav-links a:hover,.nav-links button:hover{color:var(--chalk);}
+.nav-right{display:flex;gap:.8rem;align-items:center;}
+.cart-btn{background:var(--fire);color:#fff;border:none;padding:.5rem 1.2rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;position:relative;transition:background .2s;}
+.cart-btn:hover{background:#c42d08;}
+.cart-count{position:absolute;top:-6px;right:-8px;background:var(--gold);color:#000;width:20px;height:20px;border-radius:50%;font-size:.7rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.user-btn{background:transparent;color:var(--chalk);border:1px solid #444;padding:.5rem 1rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:2px;transition:all .2s;}
+.user-btn:hover{border-color:var(--chalk);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:8rem 3rem 4rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(232,57,14,.12) 0%,transparent 70%);pointer-events:none;}
+.hero-tag{font-size:.75rem;letter-spacing:4px;text-transform:uppercase;color:var(--fire);margin-bottom:1rem;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,14vw,14rem);line-height:.9;letter-spacing:-2px;color:var(--chalk);}
+.hero h1 em{font-style:normal;-webkit-text-stroke:1px var(--chalk);color:transparent;}
+.tagline-rotator{margin-top:1.5rem;height:2.8rem;overflow:hidden;}
+.tagline-rotator-inner{display:flex;flex-direction:column;animation:rotateTag 6s ease-in-out infinite;}
+.tagline-rotator-inner span{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3vw,2rem);letter-spacing:5px;line-height:2.8rem;color:var(--gold);}
+@keyframes rotateTag{0%,38%{transform:translateY(0)}50%,88%{transform:translateY(-2.8rem)}100%{transform:translateY(0)}}
+.hero-sub{margin-top:1.5rem;font-size:1rem;color:var(--mid);max-width:460px;line-height:1.8;}
+.hero-sub strong{color:var(--chalk);font-weight:600;}
+.hero-cta{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
+.btn-primary{background:var(--fire);color:#fff;border:none;padding:1rem 2.5rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;text-decoration:none;display:inline-block;transition:transform .15s,background .2s;}
+.btn-primary:hover{background:#c42d08;transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--chalk);border:1px solid #444;padding:1rem 2.5rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;text-decoration:none;display:inline-block;transition:border-color .2s,transform .15s;}
+.btn-outline:hover{border-color:var(--chalk);transform:translateY(-2px);}
+.btn-wa{background:var(--green);color:#fff;border:none;padding:1rem 2.5rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;transition:opacity .2s;}
+.btn-wa:hover{opacity:.85;}
+
+/* TICKER */
+.ticker{background:var(--fire);overflow:hidden;padding:.6rem 0;white-space:nowrap;}
+.ticker-inner{display:inline-block;animation:ticker 22s linear infinite;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:4px;color:#fff;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* MOTIVE STRIP */
+.motive-strip{background:#111;padding:4rem 3rem;text-align:center;border-top:1px solid #1e1e1e;border-bottom:1px solid #1e1e1e;}
+.motive-strip p{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--mid);max-width:680px;margin:0 auto;line-height:1.9;font-style:italic;}
+.motive-strip p strong{color:var(--chalk);font-style:normal;font-weight:600;}
+.motive-pills{display:flex;justify-content:center;gap:1.5rem;margin-top:2rem;flex-wrap:wrap;}
+.motive-pill{border:1px solid var(--fire);color:var(--fire);padding:.6rem 2rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;}
+
+/* SECTIONS */
+section{padding:6rem 3rem;}
+.section-label{font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--fire);margin-bottom:.5rem;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);line-height:1;margin-bottom:3rem;color:var(--chalk);}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;}
+.product-card{background:var(--card-bg);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s;position:relative;}
+.product-card:hover{transform:scale(1.01);}
+.product-img{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:6rem;background:linear-gradient(135deg,#1a1a1a,#111);border-bottom:1px solid #222;overflow:hidden;}
+.product-img img{width:100%;height:100%;object-fit:cover;}
+.product-info{padding:1.2rem;flex:1;display:flex;flex-direction:column;gap:.5rem;}
+.product-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;}
+.product-desc{font-size:.85rem;color:var(--mid);line-height:1.6;}
+.product-price{font-size:1.3rem;color:var(--gold);font-weight:700;margin-top:auto;}
+.add-cart{margin-top:.8rem;width:100%;background:transparent;color:var(--chalk);border:1px solid #333;padding:.7rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;transition:all .2s;}
+.add-cart:hover{background:var(--fire);border-color:var(--fire);}
+.badge{position:absolute;top:1rem;left:1rem;background:var(--fire);color:#fff;font-size:.65rem;letter-spacing:2px;padding:.3rem .6rem;font-weight:700;text-transform:uppercase;}
+.product-stars{display:flex;align-items:center;gap:.4rem;font-size:.8rem;color:var(--gold);margin-top:.3rem;}
+.product-stars span{color:var(--mid);font-size:.75rem;}
+
+/* SHIRT TIERS */
+.shirt-tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:2rem;}
+.tier-card{background:#141414;border:1px solid #222;padding:1.5rem;text-align:center;cursor:pointer;transition:all .25s;position:relative;}
+.tier-card:hover,.tier-card.selected{border-color:var(--fire);background:#1a1a1a;}
+.tier-card.selected::after{content:'✓ SELECTED';position:absolute;top:.5rem;right:.5rem;font-size:.6rem;color:var(--fire);letter-spacing:1px;}
+.tier-icon{font-size:2.5rem;margin-bottom:.8rem;}
+.tier-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:var(--chalk);margin-bottom:.3rem;}
+.tier-gsm{font-size:.75rem;color:var(--fire);letter-spacing:2px;margin-bottom:.5rem;text-transform:uppercase;}
+.tier-desc{font-size:.8rem;color:var(--mid);line-height:1.6;margin-bottom:.8rem;}
+.tier-price{font-size:1.2rem;color:var(--gold);font-weight:700;}
+
+/* FEATURES */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:3rem;}
+.feat-icon{font-size:2.5rem;margin-bottom:1rem;}
+.feat-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;margin-bottom:.5rem;}
+.feat-desc{font-size:.9rem;color:var(--mid);line-height:1.7;}
+
+/* INSTAGRAM */
+.insta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:4px;margin-bottom:2rem;}
+.insta-tile{aspect-ratio:1;font-size:3rem;display:flex;align-items:center;justify-content:center;background:#1a1a1a;cursor:pointer;transition:opacity .2s;text-decoration:none;}
+.insta-tile:hover{opacity:.8;}
+.insta-link{display:inline-flex;align-items:center;gap:.8rem;color:var(--chalk);text-decoration:none;border:1px solid #333;padding:.8rem 2rem;font-size:.85rem;letter-spacing:2px;transition:border-color .2s;}
+.insta-link:hover{border-color:var(--fire);}
+
+/* REVIEWS SECTION */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2rem;}
+.review-card{background:#141414;border:1px solid #1e1e1e;padding:1.5rem;}
+.review-stars{color:var(--gold);font-size:1.1rem;margin-bottom:.5rem;}
+.review-text{font-size:.9rem;color:var(--mid);line-height:1.7;font-style:italic;margin-bottom:.8rem;}
+.review-author{font-size:.8rem;color:var(--chalk);font-weight:600;letter-spacing:1px;}
+.review-product{font-size:.75rem;color:var(--fire);margin-top:.2rem;}
+.overall-rating{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
+.big-rating{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:var(--gold);line-height:1;}
+.rating-breakdown{flex:1;}
+.rating-bar-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;font-size:.8rem;}
+.rating-bar-bg{flex:1;background:#222;height:6px;}
+.rating-bar-fill{height:6px;background:var(--gold);}
+
+/* FOOTER */
+footer{background:#050505;padding:4rem 3rem 2rem;border-top:1px solid #1a1a1a;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:3rem;}
+.footer-brand p{color:var(--mid);font-size:.9rem;line-height:1.7;margin-top:1rem;}
+.footer-col h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;margin-bottom:1rem;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:.5rem;}
+.footer-col ul li a,.footer-col ul li button{color:var(--mid);text-decoration:none;font-size:.9rem;transition:color .2s;background:none;border:none;cursor:pointer;font-family:'Barlow',sans-serif;font-weight:300;}
+.footer-col ul li a:hover,.footer-col ul li button:hover{color:var(--chalk);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid #1a1a1a;font-size:.8rem;color:#555;flex-wrap:wrap;gap:1rem;}
+.social-icons{display:flex;gap:1rem;}
+.social-icons a{color:#555;text-decoration:none;font-size:1.1rem;transition:color .2s;}
+.social-icons a:hover{color:var(--fire);}
+.helpline{font-size:.8rem;color:var(--mid);}
+
+/* SHOP PAGE */
+#page-shop{padding-top:5rem;min-height:100vh;}
+.shop-header{padding:3rem 3rem 1rem;}
+.shop-header h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:3px;}
+.shop-filters{display:flex;gap:.8rem;padding:0 3rem 2rem;flex-wrap:wrap;}
+.filter-btn{background:transparent;color:var(--mid);border:1px solid #2a2a2a;padding:.4rem 1.2rem;cursor:pointer;font-size:.8rem;letter-spacing:2px;text-transform:uppercase;transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{border-color:var(--fire);color:var(--fire);}
+.shop-grid-wrap{padding:0 3rem 4rem;}
+.empty-state{text-align:center;padding:5rem;color:var(--mid);font-size:1.1rem;}
+
+/* CART MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:flex-end;}
+.cart-panel{background:#111;width:420px;max-width:100vw;height:100vh;overflow-y:auto;padding:2rem;display:flex;flex-direction:column;animation:slideIn .25s ease;}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
+.cart-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;}
+.close-btn{background:none;border:none;color:var(--mid);font-size:1.5rem;cursor:pointer;}
+.close-btn:hover{color:var(--chalk);}
+.cart-items{flex:1;}
+.cart-item{display:flex;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid #222;}
+.cart-item-thumb{width:50px;height:50px;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;}
+.cart-item-thumb img{width:100%;height:100%;object-fit:cover;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-weight:600;font-size:.95rem;}
+.cart-item-price{color:var(--gold);font-size:.9rem;margin-top:.2rem;}
+.qty-ctrl{display:flex;align-items:center;gap:.5rem;margin-top:.4rem;}
+.qty-btn{background:#222;border:none;color:var(--chalk);width:24px;height:24px;cursor:pointer;font-size:1rem;}
+.qty-display{font-size:.9rem;min-width:24px;text-align:center;}
+.cart-item-remove{background:none;border:none;color:#555;cursor:pointer;font-size:1.2rem;}
+.cart-item-remove:hover{color:var(--fire);}
+.cart-empty{color:var(--mid);text-align:center;margin-top:4rem;font-size:1.1rem;}
+.cart-footer{margin-top:2rem;}
+.cart-total{display:flex;justify-content:space-between;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;margin-bottom:1rem;padding-top:1rem;border-top:1px solid #333;}
+.cart-total span:last-child{color:var(--gold);}
+.checkout-btn{width:100%;background:var(--fire);color:#fff;border:none;padding:1.1rem;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;cursor:pointer;transition:background .2s;}
+.checkout-btn:hover{background:#c42d08;}
+
+/* OVERLAY CENTRE */
+.overlay-center{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.9);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1rem;}
+.overlay-center.open{display:flex;}
+.panel{background:#111;max-width:95vw;max-height:90vh;overflow-y:auto;padding:2.5rem;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.panel h2{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:3px;margin-bottom:.3rem;}
+.panel .sub{color:var(--mid);font-size:.85rem;margin-bottom:2rem;}
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;}
+.x-btn{background:none;border:none;color:var(--mid);font-size:1.5rem;cursor:pointer;flex-shrink:0;}
+.x-btn:hover{color:var(--chalk);}
+.form-group{margin-bottom:1.2rem;}
+.form-group label{display:block;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:.4rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;color:var(--chalk);padding:.8rem 1rem;font-family:'Barlow',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--fire);}
+.form-group textarea{resize:vertical;min-height:70px;}
+.form-group select option{background:#1a1a1a;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-btn{width:100%;background:var(--fire);color:#fff;border:none;padding:1.2rem;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;cursor:pointer;transition:background .2s;}
+.submit-btn:hover{background:#c42d08;}
+.note{text-align:center;font-size:.8rem;color:var(--mid);margin-top:1rem;line-height:1.6;}
+
+/* ORDER STEPS */
+.step-indicator{display:flex;align-items:center;gap:.5rem;margin-bottom:2rem;}
+.step{font-size:.75rem;letter-spacing:2px;color:var(--mid);text-transform:uppercase;padding:.3rem .8rem;border:1px solid #333;}
+.step.active{color:var(--fire);border-color:var(--fire);}
+.step.done{color:#555;border-color:#333;text-decoration:line-through;}
+.step-arrow{color:#333;font-size:.8rem;}
+.order-step{display:none;}
+.order-step.active{display:block;}
+
+/* PAYMENT STEP */
+.pay-opts{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.5rem;}
+.pay-opt{border:1px solid #2a2a2a;padding:.8rem;text-align:center;cursor:pointer;transition:all .2s;font-size:.8rem;letter-spacing:1px;}
+.pay-opt.active{border-color:var(--fire);background:rgba(232,57,14,.1);color:var(--fire);}
+.pay-opt:hover{border-color:#555;}
+.pay-icon{font-size:1.5rem;display:block;margin-bottom:.3rem;}
+.qr-box{background:#fff;width:180px;height:180px;display:flex;align-items:center;justify-content:center;margin:1.5rem auto;font-size:5rem;}
+.upi-id-box{background:#1a1a1a;border:1px solid #2a2a2a;padding:1rem;text-align:center;margin-bottom:1.5rem;}
+.upi-id-box p{font-size:.75rem;color:var(--mid);letter-spacing:2px;margin-bottom:.3rem;}
+.upi-id{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--gold);}
+.upi-copy{background:none;border:1px solid #333;color:var(--mid);padding:.3rem .8rem;font-size:.75rem;cursor:pointer;margin-top:.5rem;transition:all .2s;letter-spacing:1px;}
+.upi-copy:hover{border-color:var(--fire);color:var(--fire);}
+.pay-divider{text-align:center;color:var(--mid);font-size:.8rem;letter-spacing:2px;margin:1.5rem 0;position:relative;}
+.pay-divider::before,.pay-divider::after{content:'';position:absolute;top:50%;width:35%;height:1px;background:#222;}
+.pay-divider::before{left:0;} .pay-divider::after{right:0;}
+
+/* IMAGE UPLOAD */
+.design-upload-area{border:1px dashed #333;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s;margin-bottom:1rem;}
+.design-upload-area:hover{border-color:var(--fire);}
+.design-upload-area p{color:var(--mid);font-size:.85rem;}
+.design-preview{max-width:100%;max-height:150px;margin-top:.8rem;object-fit:contain;}
+#designFileInput{display:none;}
+
+/* ORDER TRACKER */
+.tracker-steps{display:flex;flex-direction:column;gap:0;margin-top:1.5rem;}
+.track-step{display:flex;gap:1rem;align-items:flex-start;padding:.8rem 0;}
+.track-dot{width:16px;height:16px;border-radius:50%;border:2px solid #333;flex-shrink:0;margin-top:.15rem;position:relative;}
+.track-dot.done{background:var(--fire);border-color:var(--fire);}
+.track-dot.active{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px rgba(212,160,23,.4);}
+.track-line{position:absolute;top:16px;left:5px;width:2px;height:calc(100% + 8px);background:#1e1e1e;}
+.track-step-wrap{position:relative;}
+.track-label{font-weight:600;font-size:.9rem;}
+.track-sub{font-size:.8rem;color:var(--mid);margin-top:.2rem;}
+.order-id-display{background:#1a1a1a;border:1px solid #2a2a2a;padding:1rem;display:flex;justify-content:space-between;align-items:center;margin:1rem 0;}
+.order-id-display span{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--gold);}
+.copy-id-btn{background:var(--fire);color:#fff;border:none;padding:.4rem .8rem;cursor:pointer;font-size:.75rem;letter-spacing:1px;font-family:'Bebas Neue',sans-serif;}
+
+/* AUTH */
+.auth-tabs{display:flex;border-bottom:1px solid #222;margin-bottom:2rem;}
+.auth-tab{background:none;border:none;color:var(--mid);padding:.6rem 1.5rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;border-bottom:2px solid transparent;transition:all .2s;}
+.auth-tab.active{color:var(--fire);border-bottom-color:var(--fire);}
+.auth-form{display:none;} .auth-form.active{display:block;}
+.guest-opt{text-align:center;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #222;}
+.guest-opt p{color:var(--mid);font-size:.85rem;margin-bottom:1rem;}
+
+/* SUCCESS */
+.success-overlay{display:none;position:fixed;inset:0;z-index:11000;background:rgba(0,0,0,.95);align-items:center;justify-content:center;text-align:center;}
+.success-overlay.open{display:flex;}
+.success-panel{padding:3rem;max-width:500px;}
+.success-icon{font-size:5rem;margin-bottom:1.5rem;}
+.success-panel h2{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px;color:var(--gold);margin-bottom:1rem;}
+.success-panel p{color:var(--mid);line-height:1.7;margin-bottom:1.5rem;}
+.wa-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--green);color:#fff;padding:.8rem 2rem;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;margin-bottom:1rem;}
+
+/* REVIEWS MODAL */
+.star-pick{display:flex;gap:.5rem;margin-bottom:1rem;}
+.star-btn{background:none;border:none;font-size:2rem;cursor:pointer;color:#333;transition:color .2s;}
+.star-btn.lit{color:var(--gold);}
+
+/* ADMIN */
+#page-admin{padding-top:5rem;min-height:100vh;}
+.admin-header{background:#0d0d0d;padding:2rem 3rem;border-bottom:1px solid #1e1e1e;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.admin-header h1{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:3px;}
+.admin-badge{background:var(--fire);color:#fff;font-size:.7rem;letter-spacing:2px;padding:.3rem .8rem;font-weight:700;}
+.admin-tabs{display:flex;gap:0;padding:0 3rem;background:#0a0a0a;border-bottom:1px solid #1e1e1e;}
+.admin-tab{background:none;border:none;color:var(--mid);padding:1rem 1.5rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;border-bottom:2px solid transparent;transition:all .2s;}
+.admin-tab.active{color:var(--fire);border-bottom-color:var(--fire);}
+.admin-section{display:none;padding:2rem 3rem;}
+.admin-section.active{display:block;}
+.admin-body{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.admin-panel{background:#0d0d0d;padding:2rem;border:1px solid #1e1e1e;}
+.admin-panel h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;margin-bottom:1.5rem;}
+.admin-list{display:flex;flex-direction:column;gap:1rem;max-height:60vh;overflow-y:auto;}
+.admin-item{background:#141414;padding:1rem;display:flex;gap:1rem;align-items:center;border:1px solid #1e1e1e;}
+.admin-thumb{width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;flex-shrink:0;}
+.admin-thumb img{width:100%;height:100%;object-fit:cover;}
+.admin-item-info{flex:1;min-width:0;}
+.admin-item-name{font-weight:600;font-size:.95rem;}
+.admin-item-price{color:var(--gold);font-size:.85rem;}
+.admin-item-status{font-size:.75rem;color:var(--mid);}
+.admin-del{background:none;border:none;color:#555;cursor:pointer;font-size:1.2rem;}
+.admin-del:hover{color:var(--fire);}
+.toggle-btn{background:transparent;border:1px solid #2a2a2a;color:var(--mid);padding:.3rem .7rem;cursor:pointer;font-size:.7rem;letter-spacing:1px;text-transform:uppercase;transition:all .2s;}
+.toggle-btn.on{border-color:var(--fire);color:var(--fire);}
+.img-upload-area{width:100%;aspect-ratio:16/9;background:#1a1a1a;border:1px dashed #333;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:1rem;overflow:hidden;transition:border-color .2s;}
+.img-upload-area:hover{border-color:var(--fire);}
+.img-upload-area img{width:100%;height:100%;object-fit:cover;}
+.img-upload-area span{color:var(--mid);font-size:.85rem;text-align:center;padding:1rem;}
+#adminImgFile{display:none;}
+.tracker-admin-item{background:#141414;border:1px solid #1e1e1e;padding:1rem;margin-bottom:.8rem;}
+.tracker-admin-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem;}
+.tracker-admin-id{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--gold);}
+.tracker-admin-name{font-size:.85rem;color:var(--mid);}
+.status-select{background:#1a1a1a;border:1px solid #2a2a2a;color:var(--chalk);padding:.5rem .8rem;font-family:'Barlow',sans-serif;font-size:.85rem;outline:none;cursor:pointer;}
+.status-update-btn{background:var(--fire);color:#fff;border:none;padding:.5rem 1rem;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:1px;transition:background .2s;}
+.status-update-btn:hover{background:#c42d08;}
+
+/* ACCOUNT */
+#page-account{padding-top:5rem;min-height:100vh;}
+.account-body{padding:3rem;max-width:700px;margin:0 auto;}
+.account-body h1{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px;margin-bottom:.5rem;}
+.account-body .sub{color:var(--mid);margin-bottom:3rem;font-size:.9rem;}
+.order-history h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;margin-bottom:1rem;}
+.order-card{background:#141414;border:1px solid #1e1e1e;padding:1.2rem;margin-bottom:1rem;}
+.order-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem;}
+.order-id{font-size:.8rem;color:var(--mid);letter-spacing:1px;}
+.order-status-badge{font-size:.75rem;padding:.2rem .6rem;letter-spacing:1px;}
+.status-placed{background:rgba(212,160,23,.15);color:var(--gold);}
+.status-confirmed{background:rgba(232,57,14,.15);color:var(--fire);}
+.status-printing{background:rgba(100,100,255,.15);color:#8888ff;}
+.status-dispatched{background:rgba(0,180,120,.15);color:#00c880;}
+.status-delivered{background:rgba(0,200,100,.15);color:#00cc66;}
+.order-items{font-size:.9rem;}
+.order-total{color:var(--gold);font-weight:600;margin-top:.4rem;font-size:.9rem;}
+.track-order-btn{background:none;border:1px solid #333;color:var(--mid);padding:.3rem .8rem;font-size:.75rem;cursor:pointer;margin-top:.6rem;transition:all .2s;letter-spacing:1px;}
+.track-order-btn:hover{border-color:var(--fire);color:var(--fire);}
+
+@media (max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  section,.shop-grid-wrap{padding-left:1.5rem;padding-right:1.5rem;}
+  .hero{padding:7rem 1.5rem 3rem;}
+  .footer-grid{grid-template-columns:1fr;gap:2rem;}
+  .form-row{grid-template-columns:1fr;}
+  .admin-body{grid-template-columns:1fr;}
+  .shop-filters,.shop-header,.admin-tabs,.admin-section{padding-left:1.5rem;padding-right:1.5rem;}
+  .admin-header{padding:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo" onclick="showPage('home')">RAGS<span>NATION</span></span>
+  <ul class="nav-links">
+    <li><button onclick="showPage('home')">Home</button></li>
+    <li><button onclick="showPage('shop')">Shop</button></li>
+    <li><button onclick="navScroll('why')">Why Us</button></li>
+    <li><button onclick="navScroll('social')">Instagram</button></li>
+    <li><button onclick="openTracker()">Track Order</button></li>
+  </ul>
+  <div class="nav-right">
+    <button class="user-btn" id="navUserBtn" onclick="handleUserNav()">ACCOUNT</button>
+    <button class="cart-btn" onclick="openCart()">🛒 CART <span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<!-- ═══ HOME PAGE ═══ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <p class="hero-tag">✦ Nagpur's Custom Printing Studio · Free Home Delivery · 📞 7498065005</p>
+    <h1>WEAR YOUR<br><em>IDENTITY</em></h1>
+    <div class="tagline-rotator">
+      <div class="tagline-rotator-inner">
+        <span>✦ WEAR YOUR IDENTITY</span>
+        <span>✦ DESIGNED FOR YOU</span>
+      </div>
+    </div>
+    <p class="hero-sub">Custom mugs, t-shirts, caps, frames & more.<br><strong>Your face. Your brand. Your story — printed.</strong><br>Based in Nagpur. Free delivery to your door.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="showPage('shop')">Browse Products</button>
+      <button class="btn-outline" onclick="openOrder()">Custom Order</button>
+      <a class="btn-wa" href="https://wa.me/917498065005" target="_blank">💬 Order on WhatsApp</a>
+    </div>
+  </section>
+
+  <div class="ticker"><div class="ticker-inner">
+    ✦ CUSTOM MUGS &nbsp;&nbsp; ✦ T-SHIRTS &nbsp;&nbsp; ✦ CAPS &nbsp;&nbsp; ✦ KEYCHAINS &nbsp;&nbsp; ✦ PHOTO FRAMES &nbsp;&nbsp; ✦ PHONE COVERS &nbsp;&nbsp; ✦ CUSHION COVERS &nbsp;&nbsp; ✦ BOTTLES &nbsp;&nbsp; ✦ CORPORATE GIFTS &nbsp;&nbsp; ✦ CUSTOM MUGS &nbsp;&nbsp; ✦ T-SHIRTS &nbsp;&nbsp; ✦ CAPS &nbsp;&nbsp; ✦ KEYCHAINS &nbsp;&nbsp; ✦ PHOTO FRAMES &nbsp;&nbsp; ✦ PHONE COVERS &nbsp;&nbsp; ✦ CUSHION COVERS &nbsp;&nbsp; ✦ BOTTLES &nbsp;&nbsp; ✦ CORPORATE GIFTS &nbsp;&nbsp;
+  </div></div>
+
+  <div class="motive-strip">
+    <p>We believe your <strong>identity</strong> and your <strong>memories</strong> deserve to be worn, gifted, and displayed — not just stored in a phone gallery. Every print we make carries a piece of who you are.</p>
+    <div class="motive-pills">
+      <span class="motive-pill">WEAR YOUR IDENTITY</span>
+      <span class="motive-pill">DESIGNED FOR YOU</span>
+    </div>
+  </div>
+
+  <!-- SHIRT TIERS SECTION -->
+  <section style="background:#0d0d0d;">
+    <p class="section-label">T-Shirt Print Quality</p>
+    <h2 class="section-title">CHOOSE YOUR FABRIC</h2>
+    <p style="color:var(--mid);margin-bottom:2.5rem;max-width:600px;line-height:1.8;">Not all shirts are created equal. We offer three quality tiers based on fabric GSM — the higher the GSM, the softer, heavier, and longer-lasting the shirt. Pick what suits you best.</p>
+    <div class="shirt-tiers">
+      <div class="tier-card" onclick="selectTierCard(this,'Essential')" id="tier-Essential">
+        <div class="tier-icon">👕</div>
+        <p class="tier-name">ESSENTIAL</p>
+        <p class="tier-gsm">~150–170 GSM</p>
+        <p class="tier-desc">Lightweight and budget-friendly. Great for casual wear, events, and giveaways. Comfortable for daily use.</p>
+        <p class="tier-price">From ₹349</p>
+      </div>
+      <div class="tier-card" onclick="selectTierCard(this,'Signature')" id="tier-Signature">
+        <div class="tier-icon">👔</div>
+        <p class="tier-name">SIGNATURE</p>
+        <p class="tier-gsm">~180–200 GSM</p>
+        <p class="tier-desc">The sweet spot — medium weight, vibrant print quality, excellent durability. Perfect for gifting and personal use.</p>
+        <p class="tier-price">From ₹499</p>
+      </div>
+      <div class="tier-card" onclick="selectTierCard(this,'Premium')" id="tier-Premium">
+        <div class="tier-icon">🏅</div>
+        <p class="tier-name">PREMIUM</p>
+        <p class="tier-gsm">~220–240 GSM</p>
+        <p class="tier-desc">Top-of-the-line. Heavyweight, buttery-soft, ultra-vivid prints that stay brilliant wash after wash.</p>
+        <p class="tier-price">From ₹699</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;">
+      <button class="btn-primary" onclick="openOrderWithTier()">ORDER YOUR SHIRT →</button>
+    </div>
+  </section>
+
+  <section style="background:#0a0a0a;">
+    <p class="section-label">Featured Products</p>
+    <h2 class="section-title">POPULAR PICKS</h2>
+    <div class="product-grid" id="featuredGrid"></div>
+    <div style="text-align:center;margin-top:3rem;"><button class="btn-primary" onclick="showPage('shop')">VIEW ALL PRODUCTS →</button></div>
+  </section>
+
+  <section id="why">
+    <p class="section-label">Why Ragsnation</p>
+    <h2 class="section-title">QUALITY YOU CAN FEEL</h2>
+    <div class="features">
+      <div><div class="feat-icon">🎨</div><p class="feat-title">Your Design, Perfected</p><p class="feat-desc">Upload any image. Vibrant, fade-resistant sublimation printing — exactly as you imagined it.</p></div>
+      <div><div class="feat-icon">🏠</div><p class="feat-title">Free Home Delivery</p><p class="feat-desc">Based in Nagpur. We deliver to your doorstep across the city — no delivery charges, ever.</p></div>
+      <div><div class="feat-icon">💬</div><p class="feat-title">WhatsApp Support</p><p class="feat-desc">Prefer to order on WhatsApp? We're always there. No app, no login — just message us.</p></div>
+      <div><div class="feat-icon">🏅</div><p class="feat-title">Premium Materials</p><p class="feat-desc">Top-grade mugs, fabrics, and metals — for prints that truly last and impress.</p></div>
+    </div>
+  </section>
+
+  <!-- REVIEWS SECTION -->
+  <section id="reviews-section" style="background:#0d0d0d;">
+    <p class="section-label">Customer Reviews</p>
+    <h2 class="section-title">WHAT PEOPLE SAY</h2>
+    <div class="overall-rating">
+      <div class="big-rating" id="overallRatingNum">4.8</div>
+      <div>
+        <div style="color:var(--gold);font-size:1.5rem;margin-bottom:.3rem;" id="overallStars">★★★★★</div>
+        <div style="color:var(--mid);font-size:.85rem;" id="reviewCount">Based on 0 reviews</div>
+      </div>
+      <div class="rating-breakdown" id="ratingBreakdown"></div>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+    <div style="text-align:center;margin-top:2.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-primary" onclick="openReviewModal()">✦ WRITE A REVIEW</button>
+    </div>
+  </section>
+
+  <section id="social" style="background:#0a0a0a;text-align:center;">
+    <p class="section-label">Follow Our Work</p>
+    <h2 class="section-title">@RAGSNATION</h2>
+    <div class="insta-grid">
+      <a class="insta-tile" href="https://instagram.com/ragsnation" target="_blank">☕</a>
+      <a class="insta-tile" href="https://instagram.com/ragsnation" target="_blank">👕</a>
+      <a class="insta-tile" href="https://instagram.com/ragsnation" target="_blank">🧢</a>
+      <a class="insta-tile" href="https://instagram.com/ragsnation" target="_blank">🖼️</a>
+      <a class="insta-tile" href="https://instagram.com/ragsnation" target="_blank">📱</a>
+      <a class="insta-tile" href="https://instagram.com/ragsnation" target="_blank">🎁</a>
+    </div>
+    <a href="https://instagram.com/ragsnation" target="_blank" class="insta-link">📷 &nbsp; VIEW FULL GALLERY ON INSTAGRAM</a>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">RAGS<span style="color:var(--fire)">NATION</span></span>
+        <p>Wear your identity or designed for you.<br>Premium sublimation printing in Nagpur — free home delivery, always.</p>
+        <p style="margin-top:1rem;color:var(--fire);font-size:.9rem;">📞 Helpline: 7498065005</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><button onclick="showPage('shop')">Products</button></li>
+          <li><button onclick="navScroll('why')">About Us</button></li>
+          <li><button onclick="navScroll('reviews-section')">Reviews</button></li>
+          <li><button onclick="openOrder()">Custom Order</button></li>
+          <li><button onclick="openTracker()">Track Order</button></li>
+          <li><button onclick="openRefundPolicy()">Refund Policy</button></li>
+          <li><button onclick="openRefundRequest()">Request a Refund</button></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://wa.me/917498065005" target="_blank">💬 WhatsApp Us</a></li>
+          <li><a href="tel:7498065005">📞 7498065005</a></li>
+          <li><a href="mailto:ragsnation@gmail.com">✉ Email Us</a></li>
+          <li><a href="https://instagram.com/ragsnation" target="_blank">📷 Instagram</a></li>
+          <li><span style="color:var(--mid);font-size:.85rem;">📍 Nagpur, Maharashtra</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Ragsnation. All rights reserved. Nagpur.</span>
+      <div class="helpline">Helpline: <a href="tel:7498065005" style="color:var(--fire);text-decoration:none;">7498065005</a></div>
+      <div class="social-icons">
+        <a href="https://instagram.com/ragsnation" target="_blank">📷</a>
+        <a href="https://wa.me/917498065005" target="_blank">💬</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══ SHOP PAGE ═══ -->
+<div id="page-shop" class="page">
+  <div class="shop-header">
+    <p class="section-label">Ragsnation Store</p>
+    <h1>ALL PRODUCTS</h1>
+    <p style="color:var(--mid);margin-top:.5rem;font-size:.9rem;">Free delivery across Nagpur · Upload your design at checkout</p>
+  </div>
+  <div class="shop-filters" id="shopFilters"></div>
+  <div class="shop-grid-wrap"><div class="product-grid" id="shopGrid"></div></div>
+</div>
+
+<!-- ═══ ADMIN PAGE ═══ -->
+<div id="page-admin" class="page">
+  <div class="admin-header">
+    <div>
+      <h1>ADMIN PANEL</h1>
+      <p style="color:var(--mid);font-size:.85rem;margin-top:.3rem;">Ragsnation Business Manager</p>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:center;">
+      <span class="admin-badge">ADMIN</span>
+      <button class="btn-outline" onclick="adminLogout()" style="padding:.5rem 1.2rem;font-size:.9rem;">LOGOUT</button>
+    </div>
+  </div>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchAdminTab('products')">PRODUCTS</button>
+    <button class="admin-tab" onclick="switchAdminTab('orders')">ORDER TRACKER</button>
+    <button class="admin-tab" onclick="switchAdminTab('reviews')">REVIEWS</button>
+  </div>
+
+  <!-- Products Tab -->
+  <div class="admin-section active" id="admin-products">
+    <div class="admin-body">
+      <div class="admin-panel">
+        <h3>ADD PRODUCT</h3>
+        <div class="img-upload-area" id="imgUploadArea" onclick="document.getElementById('adminImgFile').click()">
+          <span>📷 Click to upload product image</span>
+        </div>
+        <input type="file" id="adminImgFile" accept="image/*" onchange="handleAdminImg(event)">
+        <div class="form-group"><label>Product Name *</label><input type="text" id="aName" placeholder="e.g. Custom Mug"></div>
+        <div class="form-group"><label>Description</label><textarea id="aDesc" placeholder="Short description..." style="min-height:60px;"></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>Price (₹) — blank = quote</label><input type="number" id="aPrice" placeholder="299"></div>
+          <div class="form-group"><label>Category</label>
+            <select id="aCat"><option>Mugs</option><option>Apparel</option><option>Accessories</option><option>Frames</option><option>Gifts</option><option>Other</option></select>
+          </div>
+        </div>
+        <div class="form-group"><label>Badge (optional)</label><input type="text" id="aBadge" placeholder="BESTSELLER / NEW / POPULAR"></div>
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+          <button class="toggle-btn on" id="availBtn" onclick="toggleAvail()">✓ VISIBLE TO CUSTOMERS</button>
+        </div>
+        <button class="btn-primary" style="width:100%;" onclick="adminAddProduct()">+ ADD PRODUCT</button>
+      </div>
+      <div class="admin-panel">
+        <h3>PRODUCTS <span id="adminCount" style="font-size:1rem;color:var(--mid);"></span></h3>
+        <div class="admin-list" id="adminList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Tracker Tab -->
+  <div class="admin-section" id="admin-orders">
+    <div style="max-width:700px;">
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;margin-bottom:1.5rem;">UPDATE ORDER STATUS</h3>
+      <p style="color:var(--mid);font-size:.9rem;margin-bottom:2rem;line-height:1.7;">Enter an order ID to update its status. Customers can see this in real time through the Order Tracker.</p>
+      <div style="display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+        <input type="text" id="adminTrackId" placeholder="Order ID e.g. RN123456" style="flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:var(--chalk);padding:.8rem 1rem;font-family:'Barlow',sans-serif;font-size:.95rem;outline:none;min-width:200px;">
+        <button class="btn-primary" style="padding:.8rem 1.5rem;" onclick="adminLoadOrder()">LOAD ORDER</button>
+      </div>
+      <div id="adminOrderEditor" style="display:none;">
+        <div class="tracker-admin-item">
+          <div class="tracker-admin-top">
+            <span class="tracker-admin-id" id="adminOrderIdDisplay"></span>
+            <span class="tracker-admin-name" id="adminOrderNameDisplay"></span>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+            <select class="status-select" id="adminStatusSelect">
+              <option value="Order Placed">📋 Order Placed</option>
+              <option value="Confirmed">✅ Confirmed</option>
+              <option value="Printing">🎨 Printing</option>
+              <option value="Quality Check">🔍 Quality Check</option>
+              <option value="Dispatched">🚚 Dispatched</option>
+              <option value="Delivered">📦 Delivered</option>
+            </select>
+            <input type="text" id="adminStatusNote" placeholder="Add a note (optional)" style="flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:var(--chalk);padding:.5rem .8rem;font-family:'Barlow',sans-serif;font-size:.85rem;outline:none;min-width:180px;">
+            <button class="status-update-btn" onclick="adminUpdateStatus()">UPDATE STATUS</button>
+          </div>
+        </div>
+      </div>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;margin:2rem 0 .8rem;">ALL ORDERS</h3>
+      <div id="orderStatBar" style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.2rem;"></div>
+      <div id="adminAllOrders"></div>
+      <div id="adminNoOrders" style="display:none;text-align:center;padding:2rem;color:var(--mid);font-size:.9rem;">No orders in this category.</div>
+    </div>
+  </div>
+
+  <!-- Reviews Tab -->
+  <div class="admin-section" id="admin-reviews">
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;margin-bottom:.5rem;">MANAGE REVIEWS</h3>
+    <p id="pendingReviewsNote" style="font-size:.85rem;margin-bottom:1.2rem;color:var(--mid);"></p>
+    <div id="adminReviewsList"></div>
+  </div>
+</div>
+
+<!-- ═══ ACCOUNT PAGE ═══ -->
+<div id="page-account" class="page">
+  <div class="account-body">
+    <h1 id="accName">MY ACCOUNT</h1>
+    <p class="sub" id="accEmail"></p>
+    <div class="order-history">
+      <h3>ORDER HISTORY</h3>
+      <div id="accOrders"></div>
+    </div>
+    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <button class="btn-outline" onclick="showPage('shop')">← BACK TO SHOP</button>
+      <button class="btn-primary" onclick="userLogout()">LOGOUT</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- Cart -->
+<div class="modal-overlay" id="cartModal">
+  <div class="cart-panel">
+    <div class="cart-header"><span class="cart-title">YOUR CART</span><button class="close-btn" onclick="closeCart()">✕</button></div>
+    <div class="cart-items" id="cartItems"><p class="cart-empty">Your cart is empty.</p></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>TOTAL</span><span id="cartTotal">₹0</span></div>
+      <button class="checkout-btn" onclick="closeCart();openOrder()">PROCEED TO ORDER →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER MODAL (multi-step) -->
+<div class="overlay-center" id="orderModal">
+  <div class="panel" style="width:600px;">
+    <div class="panel-header">
+      <h2 id="orderModalTitle">PLACE ORDER</h2>
+      <button class="x-btn" onclick="closeOrder()">✕</button>
+    </div>
+    <div class="step-indicator">
+      <span class="step active" id="stepLbl1">1. DETAILS</span>
+      <span class="step-arrow">›</span>
+      <span class="step" id="stepLbl2">2. DESIGN</span>
+      <span class="step-arrow">›</span>
+      <span class="step" id="stepLbl3">3. PAYMENT</span>
+    </div>
+
+    <!-- Step 1: Details -->
+    <div class="order-step active" id="orderStep1">
+      <p class="sub">Fill in your details. Free delivery in Nagpur! 🚚</p>
+      <div class="form-row">
+        <div class="form-group"><label>Your Name *</label><input type="text" id="fname" placeholder="Full name"></div>
+        <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" id="fphone" placeholder="+91 00000 00000"></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" id="femail" placeholder="your@email.com"></div>
+
+      <!-- Cart summary (shown when coming from cart) -->
+      <div id="cartSummaryBox" style="display:none;background:#1a1a1a;border:1px solid #2a2a2a;padding:1rem;margin-bottom:1rem;">
+        <p style="font-size:.7rem;letter-spacing:2px;color:var(--mid);text-transform:uppercase;margin-bottom:.6rem;">Your Order</p>
+        <div id="cartSummaryItems"></div>
+        <div style="border-top:1px solid #2a2a2a;margin-top:.6rem;padding-top:.6rem;display:flex;justify-content:space-between;">
+          <span style="font-size:.85rem;color:var(--mid);">Total</span>
+          <span id="cartSummaryTotal" style="color:var(--gold);font-weight:700;"></span>
+        </div>
+      </div>
+
+      <!-- Product dropdown (shown when ordering a single item directly) -->
+      <div id="productDropdownBox">
+        <div class="form-group"><label>Product *</label>
+          <select id="fproduct" onchange="onProductChange()">
+            <option value="">Select a product</option>
+            <option>Custom Mug</option>
+            <option>Photo T-Shirt – Essential (150–170 GSM)</option>
+            <option>Photo T-Shirt – Signature (180–200 GSM)</option>
+            <option>Photo T-Shirt – Premium (220–240 GSM)</option>
+            <option>Sublimation Cap</option>
+            <option>Photo Keychain</option>
+            <option>Photo Frame</option>
+            <option>Phone Cover</option>
+            <option>Cushion Cover</option>
+            <option>Bottle / Sipper</option>
+            <option>Corporate Gift Bundle</option>
+            <option>Other (describe below)</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Quantity *</label><input type="number" id="fqty" min="1" placeholder="1" value="1"></div>
+      </div>
+
+      <!-- T-shirt extras: size + colour (shown only for apparel) -->
+      <div id="apparelExtras" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Size *</label>
+            <select id="fsize">
+              <option value="">Select size</option>
+              <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Shirt Colour *</label>
+            <select id="fcolour">
+              <option value="">Select colour</option>
+              <option>White</option><option>Black</option><option>Navy Blue</option><option>Grey</option><option>Red</option><option>Custom (mention in notes)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group"><label>Delivery Address, Nagpur *</label><input type="text" id="faddress" placeholder="Area / full address in Nagpur"></div>
+      <div class="form-group"><label>Design Notes / Instructions</label><textarea id="fnotes" placeholder="Text to print, placement (front/back/sleeve), colour preferences, any special instructions..."></textarea></div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <button class="submit-btn" style="flex:1;" onclick="goToStep2()">NEXT: UPLOAD DESIGN →</button>
+        <a class="btn-wa" style="flex:0 0 auto;padding:.8rem 1.2rem;font-size:.9rem;" href="https://wa.me/917498065005?text=Hi%2C%20I%20want%20to%20place%20an%20order!" target="_blank">💬 Order on WhatsApp</a>
+      </div>
+      <p class="note">Not comfortable with online payment? Tap "Order on WhatsApp" — we'll handle everything there!</p>
+    </div>
+
+    <!-- Step 2: Design Upload -->
+    <div class="order-step" id="orderStep2">
+      <p class="sub" id="step2Sub">Upload the image or design you want printed.</p>
+
+      <!-- Print quality tip -->
+      <div style="background:#1a1a1a;border-left:3px solid var(--gold);padding:.8rem 1rem;margin-bottom:1rem;font-size:.82rem;line-height:1.7;color:var(--mid);">
+        <strong style="color:var(--chalk);display:block;margin-bottom:.2rem;">📐 Best results:</strong>
+        Min <strong style="color:var(--chalk);">1000×1000px</strong>, 300 DPI preferred · PNG or JPG · We'll confirm placement (front/back/full-bleed) on WhatsApp before printing.
+      </div>
+      <div class="design-upload-area" onclick="document.getElementById('designFileInput').click()" id="designUploadArea">
+        <p>📁 Click to upload your design image</p>
+        <p style="font-size:.75rem;margin-top:.4rem;">(JPG, PNG, PDF — max 5MB)</p>
+      </div>
+      <input type="file" id="designFileInput" accept="image/*,.pdf" onchange="handleDesignUpload(event)">
+      <div id="designPreviewWrap" style="display:none;text-align:center;margin-bottom:1rem;">
+        <img id="designPreviewImg" class="design-preview" alt="Design preview">
+        <p style="font-size:.75rem;color:var(--fire);margin-top:.5rem;" id="designFileName"></p>
+      </div>
+      <div class="form-group"><label>Or paste a Google Drive / link to your design (optional)</label><input type="text" id="fimagelink" placeholder="https://drive.google.com/..."></div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <button class="btn-outline" style="flex:0 0 auto;" onclick="goToStep(1)">← BACK</button>
+        <button class="submit-btn" style="flex:1;" onclick="goToStep3()">NEXT: PAYMENT →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Payment -->
+    <div class="order-step" id="orderStep3">
+      <p class="sub">Choose how you'd like to pay.</p>
+
+      <!-- Amount display -->
+      <div style="background:#1a1a1a;border:1px solid #2a2a2a;padding:1rem 1.2rem;margin-bottom:1.2rem;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:.8rem;letter-spacing:2px;color:var(--mid);text-transform:uppercase;">Amount to Pay</span>
+        <span id="payAmountDisplay" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:3px;">₹—</span>
+      </div>
+
+      <div class="pay-opts">
+        <div class="pay-opt active" onclick="selectPay(this,'UPI / GPay')"><span class="pay-icon">📲</span>UPI / GPay</div>
+        <div class="pay-opt" onclick="selectPay(this,'Bank Transfer')"><span class="pay-icon">🏦</span>Bank Transfer</div>
+      </div>
+      <input type="hidden" id="fpayment" value="UPI / GPay">
+
+      <div id="upiPaySection">
+        <!-- Dynamic QR — amount pre-filled, opens PhonePe/GPay directly -->
+        <div style="text-align:center;margin:1rem 0;">
+          <p style="font-size:.7rem;letter-spacing:2px;color:var(--fire);text-transform:uppercase;margin-bottom:.6rem;">Scan with PhonePe / GPay / Any UPI App</p>
+          <div style="background:#fff;display:inline-block;padding:10px;border-radius:4px;">
+            <img id="qrImg" src="" alt="UPI QR" style="width:190px;height:190px;display:block;">
+          </div>
+          <p style="font-size:.7rem;color:var(--mid);margin-top:.5rem;">Amount is auto-filled when you scan ✓</p>
+        </div>
+        <div class="upi-id-box">
+          <p>UPI ID</p>
+          <div class="upi-id">ragsnation@axl</div>
+          <button class="upi-copy" onclick="copyUPI()">📋 COPY UPI ID</button>
+        </div>
+
+        <!-- Payment screenshot upload -->
+        <div style="margin:1rem 0;">
+          <label style="display:block;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:.4rem;">📸 Upload Payment Screenshot</label>
+          <div class="design-upload-area" onclick="document.getElementById('payScreenshotInput').click()" id="payUploadArea">
+            <p>📁 Click to upload your payment screenshot</p>
+            <p style="font-size:.75rem;margin-top:.3rem;">(JPG or PNG)</p>
+          </div>
+          <input type="file" id="payScreenshotInput" accept="image/*" onchange="handlePayScreenshot(event)" style="display:none;">
+          <div id="payScreenshotPreview" style="display:none;text-align:center;margin-top:.6rem;">
+            <img id="payScreenshotImg" style="max-width:100%;max-height:120px;object-fit:contain;" alt="Payment proof">
+            <p id="payScreenshotName" style="font-size:.75rem;color:var(--fire);margin-top:.3rem;"></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="bankPaySection" style="display:none;">
+        <div class="upi-id-box">
+          <p>Bank Transfer details will be shared on WhatsApp after order confirmation.</p>
+        </div>
+      </div>
+
+      <div class="pay-divider">OR NOT COMFORTABLE WITH ONLINE PAYMENT?</div>
+      <a class="btn-wa" style="width:100%;justify-content:center;margin-bottom:1rem;" id="waOrderBtn" href="#" target="_blank">💬 PLACE ORDER DIRECTLY ON WHATSAPP</a>
+
+      <div id="submitStatus" style="display:none;text-align:center;padding:.8rem;font-size:.85rem;color:var(--gold);margin-bottom:.8rem;"></div>
+
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <button class="btn-outline" style="flex:0 0 auto;" onclick="goToStep(2)">← BACK</button>
+        <button class="submit-btn" id="confirmOrderBtn" style="flex:1;" onclick="submitOrder()">✦ CONFIRM ORDER ✦</button>
+      </div>
+      <p class="note">After confirming, you'll get an Order ID. Save it to track your order anytime!</p>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="overlay-center" id="authModal">
+  <div class="panel" style="width:440px;">
+    <div class="panel-header"><h2>ACCOUNT</h2><button class="x-btn" onclick="closeAuth()">✕</button></div>
+    <p class="sub">Sign in or create an account to track your orders.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">LOGIN</button>
+      <button class="auth-tab" onclick="switchTab('register')">REGISTER</button>
+    </div>
+    <div class="auth-form active" id="tabLogin">
+      <div class="form-group"><label>Email *</label><input type="email" id="lEmail" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Password *</label><input type="password" id="lPass" placeholder="Password"></div>
+      <button class="submit-btn" onclick="doLogin()">LOGIN →</button>
+    </div>
+    <div class="auth-form" id="tabRegister">
+      <div class="form-group"><label>Full Name *</label><input type="text" id="rName" placeholder="Your name"></div>
+      <div class="form-group"><label>Email *</label><input type="email" id="rEmail" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" id="rPhone" placeholder="+91 00000 00000"></div>
+      <div class="form-group"><label>Password *</label><input type="password" id="rPass" placeholder="Create a password"></div>
+      <button class="submit-btn" onclick="doRegister()">CREATE ACCOUNT →</button>
+    </div>
+    <div class="guest-opt">
+      <p>Don't want to sign in?</p>
+      <button class="btn-outline" onclick="closeAuth();openOrder()">ORDER AS GUEST →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="overlay-center" id="adminAuthModal">
+  <div class="panel" style="width:400px;">
+    <div class="panel-header"><h2>ADMIN LOGIN</h2><button class="x-btn" onclick="document.getElementById('adminAuthModal').classList.remove('open')">✕</button></div>
+    <p class="sub">Enter your admin credentials to manage products and orders.</p>
+    <div class="form-group"><label>Username</label><input type="text" id="aUser" placeholder="admin"></div>
+    <div class="form-group"><label>Password</label><input type="password" id="aPass" placeholder="password"></div>
+    <button class="submit-btn" onclick="doAdminLogin()">LOGIN AS ADMIN →</button>
+    <p class="note" style="margin-top:.8rem;">Hint: admin / ragsnation2025</p>
+  </div>
+</div>
+
+<!-- ORDER TRACKER MODAL -->
+<div class="overlay-center" id="trackerModal">
+  <div class="panel" style="width:520px;">
+    <div class="panel-header"><h2>TRACK ORDER</h2><button class="x-btn" onclick="closeTracker()">✕</button></div>
+    <p class="sub">Enter your Order ID to see live status. If you have an account, your orders appear automatically.</p>
+    <div style="display:flex;gap:.8rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <input type="text" id="trackInput" placeholder="e.g. RN123456" style="flex:1;background:#1a1a1a;border:1px solid #2a2a2a;color:var(--chalk);padding:.8rem 1rem;font-family:'Barlow',sans-serif;font-size:.95rem;outline:none;min-width:180px;">
+      <button class="submit-btn" style="width:auto;padding:.8rem 1.5rem;" onclick="doTrackOrder()">TRACK →</button>
+    </div>
+    <div id="trackerResult" style="display:none;">
+      <div class="order-id-display">
+        <span id="trackerOrderId"></span>
+        <button class="copy-id-btn" onclick="copyOrderId()">COPY ID</button>
+      </div>
+      <p style="font-size:.8rem;color:var(--mid);margin-bottom:1rem;" id="trackerOrderMeta"></p>
+      <div class="tracker-steps" id="trackerSteps"></div>
+    </div>
+    <div id="trackerNotFound" style="display:none;text-align:center;padding:2rem;color:var(--mid);">
+      <p style="font-size:1.2rem;margin-bottom:.5rem;">😕 Order not found</p>
+      <p style="font-size:.85rem;">Double-check your Order ID or <a href="https://wa.me/917498065005" target="_blank" style="color:var(--fire);">contact us on WhatsApp</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div class="overlay-center" id="reviewModal">
+  <div class="panel" style="width:500px;">
+    <div class="panel-header"><h2>WRITE A REVIEW</h2><button class="x-btn" onclick="closeReviewModal()">✕</button></div>
+    <p class="sub">Share your experience with Ragsnation. Your feedback helps others!</p>
+    <div class="form-group"><label>Your Name *</label><input type="text" id="revName" placeholder="Your name"></div>
+    <div class="form-group"><label>Product Ordered</label><input type="text" id="revProduct" placeholder="e.g. Custom Mug, T-Shirt"></div>
+    <div class="form-group">
+      <label>Rating *</label>
+      <div class="star-pick" id="starPick">
+        <button class="star-btn" onclick="setReviewStar(1)">★</button>
+        <button class="star-btn" onclick="setReviewStar(2)">★</button>
+        <button class="star-btn" onclick="setReviewStar(3)">★</button>
+        <button class="star-btn" onclick="setReviewStar(4)">★</button>
+        <button class="star-btn" onclick="setReviewStar(5)">★</button>
+      </div>
+    </div>
+    <div class="form-group"><label>Your Review *</label><textarea id="revText" placeholder="Tell others about your experience..." style="min-height:90px;"></textarea></div>
+    <button class="submit-btn" onclick="submitReview()">SUBMIT REVIEW →</button>
+  </div>
+</div>
+
+<!-- REFUND POLICY MODAL -->
+<div class="overlay-center" id="refundPolicyModal">
+  <div class="panel" style="width:540px;max-height:85vh;overflow-y:auto;">
+    <div class="panel-header"><h2>REFUND POLICY</h2><button class="x-btn" onclick="document.getElementById('refundPolicyModal').classList.remove('open')">✕</button></div>
+    <div style="line-height:1.8;font-size:.9rem;color:var(--mid);">
+      <p style="color:var(--chalk);font-size:1rem;font-weight:600;margin-bottom:1rem;">We stand behind the quality of every item we print.</p>
+
+      <div style="background:#1a1a1a;border-left:3px solid var(--green);padding:.8rem 1rem;margin-bottom:1.2rem;">
+        <p style="color:var(--chalk);font-weight:600;margin-bottom:.3rem;">✅ Full Refund Eligible</p>
+        <ul style="padding-left:1.2rem;">
+          <li>Order cancelled before printing has started</li>
+          <li>Wrong item delivered (not what you ordered)</li>
+          <li>Damaged or defective product on delivery</li>
+          <li>Order not delivered within 10 working days</li>
+        </ul>
+      </div>
+
+      <div style="background:#1a1a1a;border-left:3px solid var(--fire);padding:.8rem 1rem;margin-bottom:1.2rem;">
+        <p style="color:var(--chalk);font-weight:600;margin-bottom:.3rem;">❌ Not Eligible for Refund</p>
+        <ul style="padding-left:1.2rem;">
+          <li><strong style="color:var(--chalk);">Once a T-shirt or any item has been printed</strong>, we cannot offer a refund — the item is custom-made exclusively for you</li>
+          <li>Incorrect design/photo provided by the customer</li>
+          <li>Change of mind after printing has started</li>
+          <li>Size issues for T-shirts if correct size was selected at order time</li>
+        </ul>
+      </div>
+
+      <div style="background:#1a1a1a;border-left:3px solid var(--gold);padding:.8rem 1rem;margin-bottom:1.2rem;">
+        <p style="color:var(--chalk);font-weight:600;margin-bottom:.3rem;">⚠️ Important Notes</p>
+        <ul style="padding-left:1.2rem;">
+          <li>We <strong style="color:var(--chalk);">always confirm your design on WhatsApp</strong> before printing — please approve carefully</li>
+          <li>Refund requests must be made within <strong style="color:var(--chalk);">48 hours of delivery</strong></li>
+          <li>Refunds are processed within 3–5 business days to your original payment method</li>
+          <li>For any issue, WhatsApp us first — we always try to resolve before a refund</li>
+        </ul>
+      </div>
+
+      <p style="font-size:.82rem;color:var(--mid);margin-top:1rem;">Questions? WhatsApp us at <a href="https://wa.me/917498065005" style="color:var(--fire);">7498065005</a> — we're always happy to help.</p>
+
+      <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="document.getElementById('refundPolicyModal').classList.remove('open');openRefundRequest()">REQUEST A REFUND →</button>
+        <button class="btn-outline" onclick="document.getElementById('refundPolicyModal').classList.remove('open')">CLOSE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REFUND REQUEST MODAL -->
+<div class="overlay-center" id="refundRequestModal">
+  <div class="panel" style="width:500px;">
+    <div class="panel-header"><h2>REQUEST A REFUND</h2><button class="x-btn" onclick="document.getElementById('refundRequestModal').classList.remove('open')">✕</button></div>
+    <p class="sub">Fill in your details and we'll get back to you on WhatsApp within 24 hours.</p>
+    <div style="background:#1a1a1a;border-left:3px solid var(--fire);padding:.7rem 1rem;margin-bottom:1rem;font-size:.82rem;color:var(--mid);">
+      Once a custom item is printed, we are unable to offer a refund. Please <a href="#" onclick="document.getElementById('refundRequestModal').classList.remove('open');openRefundPolicy()" style="color:var(--fire);">read our policy</a> before submitting.
+    </div>
+    <div class="form-group"><label>Your Name *</label><input type="text" id="rfName" placeholder="Full name"></div>
+    <div class="form-group"><label>Order ID *</label><input type="text" id="rfOrderId" placeholder="e.g. RN123456"></div>
+    <div class="form-group"><label>Phone / WhatsApp *</label><input type="tel" id="rfPhone" placeholder="+91 00000 00000"></div>
+    <div class="form-group">
+      <label>Reason for Refund *</label>
+      <select id="rfReason">
+        <option value="">Select reason</option>
+        <option>Order not yet printed — want to cancel</option>
+        <option>Wrong item delivered</option>
+        <option>Damaged / defective product</option>
+        <option>Order not delivered</option>
+        <option>Other (explain below)</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Additional Details</label><textarea id="rfDetails" placeholder="Describe the issue in detail..." style="min-height:80px;"></textarea></div>
+    <button class="submit-btn" onclick="submitRefundRequest()">SUBMIT REFUND REQUEST →</button>
+    <p class="note">Our team will contact you on WhatsApp within 24 hours.</p>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="success-overlay" id="successModal">
+  <div class="success-panel">
+    <div class="success-icon">✅</div>
+    <h2>ORDER PLACED!</h2>
+    <p id="successMsg">Your order has been received!</p>
+    <div class="order-id-display" style="margin:0 auto 1.5rem;max-width:360px;">
+      <span id="successOrderId" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--gold);"></span>
+      <button class="copy-id-btn" onclick="copySuccessId()">COPY ORDER ID</button>
+    </div>
+    <p style="font-size:.8rem;color:var(--fire);margin-bottom:1.5rem;">⬆ Save this Order ID to track your order anytime!</p>
+    <a id="waLink" href="#" target="_blank" class="wa-btn" style="display:inline-flex;margin-bottom:1rem;">💬 OPEN WHATSAPP CONFIRMATION</a><br>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:.5rem;">
+      <button onclick="closeSuccess()" class="btn-outline">← BACK TO SHOP</button>
+      <button onclick="closeSuccess();openTracker()" class="btn-primary">📦 TRACK ORDER</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══ CONSTANTS ═══
+const ADMIN_USER = 'admin', ADMIN_PASS = 'ragsnation2025';
+const WA_NUMBER = '917498065005';
+const UPI_ID = 'ragsnation@axl';
+
+// ── Paste your Google Apps Script Web App URL here after setup ──
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaS971uLUmwbMPtpz-ltsoGLWfj1e-Qp1_atAgf9z5naDtT8ZgIa_h7-IVyjy2-q_M/exec';
+
+// ═══ STATE ═══
+let cart=[], currentUser=null, isAdmin=false, adminImgData=null, adminAvail=true, activeFilter='All';
+let reviewStar=0, designFileData=null, designFileName='', selectedTier='';
+let currentOrderStep=1;
+
+// ═══ STORAGE HELPERS ═══
+const getUsers    = () => { try{return JSON.parse(localStorage.getItem('rn_users')||'[]');}catch{return[];} };
+const saveUsers   = u  => { try{localStorage.setItem('rn_users',JSON.stringify(u));}catch{} };
+const getProducts = () => { try{return JSON.parse(localStorage.getItem('rn_products')||'null')||defaultProducts();}catch{return defaultProducts();} };
+const saveProducts= p  => { try{localStorage.setItem('rn_products',JSON.stringify(p));}catch{} };
+const getOrders   = () => { try{return JSON.parse(localStorage.getItem('rn_orders')||'[]');}catch{return[];} };
+const saveOrders  = o  => { try{localStorage.setItem('rn_orders',JSON.stringify(o));}catch{} };
+const getReviews  = () => { try{return JSON.parse(localStorage.getItem('rn_reviews')||'null')||defaultReviews();}catch{return defaultReviews();} };
+const saveReviews = r  => { try{localStorage.setItem('rn_reviews',JSON.stringify(r));}catch{} };
+
+function defaultProducts() {
+  return [
+    {id:1,emoji:'☕',img:null,name:'Custom Mug',desc:'11oz ceramic mug with your photo or design.',price:299,category:'Mugs',badge:'BESTSELLER',available:true},
+    {id:2,emoji:'👕',img:null,name:'Photo T-Shirt – Essential',desc:'150–170 GSM lightweight tee. Comfortable for daily and event wear.',price:349,category:'Apparel',badge:null,available:true},
+    {id:3,emoji:'👔',img:null,name:'Photo T-Shirt – Signature',desc:'180–200 GSM medium-weight. Vibrant print, excellent durability.',price:499,category:'Apparel',badge:'POPULAR',available:true},
+    {id:4,emoji:'🏅',img:null,name:'Photo T-Shirt – Premium',desc:'220–240 GSM heavyweight. Buttery-soft, ultra-vivid prints.',price:699,category:'Apparel',badge:'BEST',available:true},
+    {id:5,emoji:'🧢',img:null,name:'Sublimation Cap',desc:'Structured cap with custom front panel print.',price:349,category:'Accessories',badge:null,available:true},
+    {id:6,emoji:'🔑',img:null,name:'Photo Keychain',desc:'Durable acrylic keychain with your design.',price:149,category:'Accessories',badge:null,available:true},
+    {id:7,emoji:'🖼️',img:null,name:'Photo Frame',desc:'Printed sublimation frame in multiple sizes.',price:399,category:'Frames',badge:null,available:true},
+    {id:8,emoji:'📱',img:null,name:'Phone Cover',desc:'Hard case with your photo — fits all models.',price:249,category:'Accessories',badge:null,available:true},
+    {id:9,emoji:'🛋️',img:null,name:'Cushion Cover',desc:'16×16 sublimation cushion cover, vibrant print.',price:449,category:'Gifts',badge:null,available:true},
+    {id:10,emoji:'🎁',img:null,name:'Corporate Gift Bundle',desc:'Bulk mugs, keychains & more — contact for quote.',price:null,category:'Gifts',badge:'BULK',available:true},
+  ];
+}
+function defaultReviews() {
+  return [
+    {id:1,name:'Priya S.',product:'Custom Mug',rating:5,text:'Absolutely loved the quality! The mug print came out crystal clear and the colours are so vivid. Perfect gift for my mom.',date:'May 2025',approved:true},
+    {id:2,name:'Rahul M.',product:'Signature T-Shirt',rating:5,text:'The fabric quality is top-notch. Wore it to college and got so many compliments. Will definitely order again!',date:'Apr 2025',approved:true},
+    {id:3,name:'Sneha K.',product:'Phone Cover',rating:4,text:'Great print quality and fast delivery. Loved the experience! Minor packaging could be improved but overall excellent.',date:'Apr 2025',approved:true},
+  ];
+}
+
+// ═══ PAGE ROUTING ═══
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='shop') renderShop();
+  else if(page==='home') {renderFeatured();renderReviews();}
+  else if(page==='admin') {renderAdminList();renderAdminOrders();renderAdminReviews();}
+  else if(page==='account') renderAccount();
+}
+function navScroll(id) {
+  showPage('home');
+  setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});},100);
+}
+
+// ═══ SHIRT TIER ═══
+function selectTierCard(el,tier) {
+  document.querySelectorAll('.tier-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTier=tier;
+}
+function openOrderWithTier() {
+  openOrder();
+  if(selectedTier) {
+    setTimeout(()=>{
+      const map={Essential:'Photo T-Shirt – Essential (150–170 GSM)',Signature:'Photo T-Shirt – Signature (180–200 GSM)',Premium:'Photo T-Shirt – Premium (220–240 GSM)'};
+      document.getElementById('fproduct').value=map[selectedTier]||'';
+    },100);
+  }
+}
+
+// ═══ PRODUCT CARDS ═══
+function productStars(id) {
+  const revs=getReviews().filter(r=>r.approved);
+  const avg=revs.length?revs.reduce((s,r)=>s+r.rating,0)/revs.length:0;
+  if(!avg) return '';
+  const stars='★'.repeat(Math.round(avg))+'☆'.repeat(5-Math.round(avg));
+  return `<div class="product-stars">${stars} <span>(${revs.length})</span></div>`;
+}
+function productCard(p) {
+  return `<div class="product-card">
+    ${p.badge?`<span class="badge">${p.badge}</span>`:''}
+    <div class="product-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<span>${p.emoji||'📦'}</span>`}</div>
+    <div class="product-info">
+      <p class="product-name">${p.name}</p>
+      <p class="product-desc">${p.desc}</p>
+      ${p.category==='Apparel'?productStars(p.id):''}
+      <p class="product-price">${p.price?'₹'+p.price:'Get Quote'}</p>
+      <button class="add-cart" onclick="${p.price?`addToCart(${p.id})`:`openOrder()`}">${p.price?'+ ADD TO CART':'📩 REQUEST QUOTE'}</button>
+    </div>
+  </div>`;
+}
+function renderFeatured() {
+  const prods=getProducts().filter(p=>p.available).slice(0,4);
+  document.getElementById('featuredGrid').innerHTML=prods.length?prods.map(productCard).join(''):'<p class="empty-state">Products coming soon!</p>';
+}
+function renderShop() {
+  const prods=getProducts().filter(p=>p.available);
+  const cats=['All',...new Set(prods.map(p=>p.category))];
+  document.getElementById('shopFilters').innerHTML=cats.map(c=>`<button class="filter-btn ${c===activeFilter?'active':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+  const filtered=activeFilter==='All'?prods:prods.filter(p=>p.category===activeFilter);
+  document.getElementById('shopGrid').innerHTML=filtered.length?filtered.map(productCard).join(''):'<p class="empty-state">No products in this category yet.</p>';
+}
+function setFilter(cat){activeFilter=cat;renderShop();}
+
+// ═══ CART ═══
+function addToCart(id) {
+  const p=getProducts().find(x=>x.id===id);if(!p)return;
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCartUI();openCart();
+}
+function updateCartUI() {
+  const total=cart.reduce((s,i)=>s+(i.price||0)*i.qty,0);
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent=count;
+  const itemsEl=document.getElementById('cartItems');
+  const footer=document.getElementById('cartFooter');
+  if(!cart.length){itemsEl.innerHTML='<p class="cart-empty">Your cart is empty.</p>';footer.style.display='none';return;}
+  footer.style.display='block';
+  document.getElementById('cartTotal').textContent='₹'+total;
+  itemsEl.innerHTML=cart.map(i=>`<div class="cart-item">
+    <div class="cart-item-thumb">${i.img?`<img src="${i.img}">`:(i.emoji||'📦')}</div>
+    <div class="cart-item-info">
+      <p class="cart-item-name">${i.name}</p>
+      <p class="cart-item-price">₹${i.price} each</p>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+        <span class="qty-display">${i.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+      </div>
+    </div>
+    <button class="cart-item-remove" onclick="removeItem(${i.id})">🗑</button>
+  </div>`).join('');
+}
+function changeQty(id,d){const item=cart.find(x=>x.id===id);if(!item)return;item.qty+=d;if(item.qty<=0)cart=cart.filter(x=>x.id!==id);updateCartUI();}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);updateCartUI();}
+function openCart(){document.getElementById('cartModal').classList.add('open');}
+function closeCart(){document.getElementById('cartModal').classList.remove('open');}
+
+// ═══ ORDER MULTI-STEP ═══
+function openOrder() {
+  currentOrderStep=1;
+  renderOrderStep(1);
+  // Pre-fill user details if logged in
+  if(currentUser){
+    document.getElementById('fname').value=currentUser.name||'';
+    document.getElementById('fphone').value=currentUser.phone||'';
+    document.getElementById('femail').value=currentUser.email||'';
+  }
+
+  if(cart.length) {
+    // Coming from cart — show cart summary, hide product dropdown
+    document.getElementById('cartSummaryBox').style.display='block';
+    document.getElementById('productDropdownBox').style.display='none';
+    document.getElementById('apparelExtras').style.display='none';
+
+    // Render cart summary
+    const summaryItems=cart.map(i=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.3rem 0;font-size:.85rem;">
+        <span style="color:var(--chalk);">${i.name} <span style="color:var(--mid);">×${i.qty}</span></span>
+        <span style="color:var(--gold);">₹${i.price*i.qty}</span>
+      </div>`).join('');
+    document.getElementById('cartSummaryItems').innerHTML=summaryItems;
+    const total=cart.reduce((s,i)=>s+(i.price||0)*i.qty,0);
+    document.getElementById('cartSummaryTotal').textContent='₹'+total;
+
+    // Check if any apparel in cart — show size/colour
+    const hasApparel=cart.some(i=>i.category==='Apparel'||i.name.toLowerCase().includes('t-shirt')||i.name.toLowerCase().includes('shirt'));
+    if(hasApparel) document.getElementById('apparelExtras').style.display='block';
+
+  } else {
+    // Direct order — show product dropdown
+    document.getElementById('cartSummaryBox').style.display='none';
+    document.getElementById('productDropdownBox').style.display='block';
+    document.getElementById('fproduct').value='';
+    document.getElementById('fqty').value='1';
+    document.getElementById('apparelExtras').style.display='none';
+  }
+
+  document.getElementById('orderModal').classList.add('open');
+  updateWAOrderLink();
+}
+
+function onProductChange() {
+  const val=document.getElementById('fproduct').value.toLowerCase();
+  const isApparel=val.includes('t-shirt')||val.includes('shirt');
+  document.getElementById('apparelExtras').style.display=isApparel?'block':'none';
+}
+function closeOrder(){document.getElementById('orderModal').classList.remove('open');}
+
+function renderOrderStep(n) {
+  document.querySelectorAll('.order-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('orderStep'+n).classList.add('active');
+  const labels=['1. DETAILS','2. DESIGN','3. PAYMENT'];
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('stepLbl'+i);
+    el.classList.remove('active','done');
+    if(i<n)el.classList.add('done');
+    else if(i===n)el.classList.add('active');
+  });
+  currentOrderStep=n;
+}
+function goToStep2() {
+  const name=document.getElementById('fname').value.trim();
+  const phone=document.getElementById('fphone').value.trim();
+  const address=document.getElementById('faddress').value.trim();
+  if(!name||!phone||!address){alert('Please fill in Name, Phone and Delivery Address.');return;}
+
+  // If no cart, require product selection
+  if(!cart.length) {
+    const product=document.getElementById('fproduct').value;
+    if(!product){alert('Please select a product.');return;}
+    // Check apparel requires size + colour
+    if(product.toLowerCase().includes('t-shirt')){
+      const size=document.getElementById('fsize').value;
+      const colour=document.getElementById('fcolour').value;
+      if(!size||!colour){alert('Please select T-shirt size and colour.');return;}
+    }
+  } else {
+    // Cart flow — check apparel size if needed
+    const hasApparel=cart.some(i=>i.category==='Apparel'||i.name.toLowerCase().includes('t-shirt'));
+    if(hasApparel){
+      const size=document.getElementById('fsize').value;
+      const colour=document.getElementById('fcolour').value;
+      if(!size||!colour){alert('Please select T-shirt size and colour.');return;}
+    }
+  }
+
+  // Update Step 2 subtitle based on product type
+  const hasPhoto=['mug','keychain','frame','cover','cushion','bottle','sipper'].some(w=>{
+    const prod=cart.length?cart.map(i=>i.name.toLowerCase()).join(' '):(document.getElementById('fproduct').value.toLowerCase());
+    return prod.includes(w);
+  });
+  document.getElementById('step2Sub').textContent=hasPhoto
+    ?'Upload the photo you want printed on your item.'
+    :'Upload the design/artwork you want printed.';
+
+  renderOrderStep(2);
+}
+function goToStep3() { renderOrderStep(3); updateWAOrderLink(); updatePaymentStep(); }
+function goToStep(n) { renderOrderStep(n); }
+
+// ── Payment step: price + QR ──
+function getOrderAmount() {
+  if(cart.length) return cart.reduce((s,i)=>s+(i.price||0)*i.qty,0);
+  const product=document.getElementById('fproduct').value;
+  const qty=parseInt(document.getElementById('fqty').value)||1;
+  const match=getProducts().find(p=>product&&product.includes(p.name.split('–')[0].trim()));
+  return match&&match.price ? match.price*qty : 0;
+}
+function updatePaymentStep() {
+  const amount=getOrderAmount();
+  document.getElementById('payAmountDisplay').textContent=amount?'₹'+amount:'Quote Pending';
+  const upiStr=amount
+    ?`upi://pay?pa=${UPI_ID}&pn=Ragsnation&am=${amount}&cu=INR&tn=Ragsnation%20Order`
+    :`upi://pay?pa=${UPI_ID}&pn=Ragsnation&cu=INR`;
+  document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=${encodeURIComponent(upiStr)}`;
+}
+
+// ── Payment screenshot ──
+let payScreenshotData=null, payScreenshotFileName='';
+function handlePayScreenshot(e) {
+  const file=e.target.files[0]; if(!file)return;
+  payScreenshotFileName=file.name;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    payScreenshotData=ev.target.result;
+    document.getElementById('payScreenshotImg').src=payScreenshotData;
+    document.getElementById('payScreenshotName').textContent='✓ '+file.name;
+    document.getElementById('payScreenshotPreview').style.display='block';
+    document.getElementById('payUploadArea').querySelector('p').textContent='✓ Uploaded — click to change';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Submit order via Google Apps Script ──
+function submitOrder() {
+  const name    = document.getElementById('fname').value.trim();
+  const phone   = document.getElementById('fphone').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const address = document.getElementById('faddress').value.trim();
+  const notes   = document.getElementById('fnotes').value.trim();
+  const payment = document.getElementById('fpayment').value;
+  const imagelink=document.getElementById('fimagelink').value.trim();
+  const fsize   = document.getElementById('fsize').value;
+  const fcolour = document.getElementById('fcolour').value;
+  const product = cart.length?'':document.getElementById('fproduct').value;
+  const qty     = cart.length?'':document.getElementById('fqty').value||'1';
+
+  if(!name||!phone||!address){alert('Please fill in Name, Phone and Address.');return;}
+  if(!cart.length&&!product){alert('Please select a product.');return;}
+
+  const cartSummary=cart.length
+    ?cart.map(i=>`${i.name} x${i.qty} = Rs.${i.price*i.qty}`).join(', ')
+    :`${product} x${qty}`;
+  const sizeNote=(fsize||fcolour)?` | Size: ${fsize||'N/A'} | Colour: ${fcolour||'N/A'}`:'';
+  const fullSummary=cartSummary+sizeNote;
+  const total=getOrderAmount();
+  const orderId='RN'+Date.now().toString().slice(-6);
+  const orderDate=new Date().toLocaleDateString('en-IN');
+
+  if(!APPS_SCRIPT_URL||APPS_SCRIPT_URL==='YOUR_APPS_SCRIPT_URL_HERE'){
+    fallbackWhatsApp(name,phone,email,fullSummary,qty,address,notes,payment,imagelink);
+    return;
+  }
+
+  // Save locally first
+  const orderObj={id:orderId,name,phone,email,product:fullSummary,qty,total,payment,address,notes,date:orderDate,status:'Order Placed',statusHistory:[{status:'Order Placed',note:'',date:orderDate}],imagelink};
+  const orders=getOrders();orders.unshift(orderObj);saveOrders(orders);
+  if(currentUser){
+    currentUser.orders=currentUser.orders||[];
+    currentUser.orders.unshift({id:orderId,items:fullSummary,total,date:orderDate,status:'Order Placed'});
+    const users=getUsers();const idx=users.findIndex(u=>u.email===currentUser.email);
+    if(idx>=0){users[idx]=currentUser;saveUsers(users);}
+  }
+
+  const btn=document.getElementById('confirmOrderBtn');
+  const statusEl=document.getElementById('submitStatus');
+  btn.disabled=true;btn.textContent='PLACING ORDER...';
+  statusEl.style.display='block';statusEl.textContent='⏳ Please wait, placing your order...';
+
+  const payload={
+    orderId,name,phone,email:email||'',product:fullSummary,qty,total:total||'Quote Pending',
+    payment,address,notes:notes||'None',imagelink:imagelink||'',orderDate,
+    sendConfirmationTo: email||'',
+    designImage:designFileData||'',designFileName:designFileName||'',
+    paymentImage:payScreenshotData||'',paymentFileName:payScreenshotFileName||'',
+  };
+
+  fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify(payload),mode:'no-cors'})
+    .then(()=>onOrderSuccess(orderId,name,product||fullSummary,total,payment,address,notes,imagelink,fullSummary))
+    .catch(err=>{
+      console.error(err);
+      statusEl.textContent='Could not reach server. Order saved locally.';
+      fallbackWhatsApp(name,phone,email,fullSummary,qty,address,notes,payment,imagelink);
+      btn.disabled=false;btn.textContent='✦ CONFIRM ORDER ✦';
+    });
+}
+
+function onOrderSuccess(orderId,name,product,total,payment,address,notes,imagelink,cartSummary){
+  const btn=document.getElementById('confirmOrderBtn');
+  const statusEl=document.getElementById('submitStatus');
+  btn.disabled=false; btn.textContent='✦ CONFIRM ORDER ✦';
+  statusEl.style.display='none';
+  closeOrder();
+  payScreenshotData=null; payScreenshotFileName='';
+  const waMsg=encodeURIComponent(
+    `🛒 *Order Confirmation – Ragsnation*\n\n📋 *Order ID:* ${orderId}\n👤 *Name:* ${name}\n📦 *Order:* ${cartSummary||product}\n💰 *Total:* ${total?'₹'+total:'TBD'}\n💳 *Payment:* ${payment}\n📍 *Address:* ${address}\n📝 *Notes:* ${notes||'None'}`
+  );
+  document.getElementById('successMsg').textContent=`Thank you, ${name}! Your order has been placed. We'll confirm on WhatsApp within 2–4 hours. Free delivery in Nagpur! 🚚`;
+  document.getElementById('successOrderId').textContent=orderId;
+  document.getElementById('waLink').href=`https://wa.me/${WA_NUMBER}?text=${waMsg}`;
+  document.getElementById('successModal').classList.add('open');
+  cart=[]; updateCartUI();
+}
+
+function fallbackWhatsApp(name,phone,email,product,qty,address,notes,payment,imagelink){
+  const orderId='RN'+Date.now().toString().slice(-6);
+  const waMsg=encodeURIComponent(
+    `🛒 *New Order – Ragsnation*\n\n📋 *Order ID:* ${orderId}\n👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n📧 *Email:* ${email||'N/A'}\n📦 *Product:* ${product} x${qty}\n💳 *Payment:* ${payment}\n📍 *Address:* ${address}\n📝 *Notes:* ${notes||'None'}\n🖼 *Design:* ${imagelink||'Will share separately'}`
+  );
+  window.open(`https://wa.me/${WA_NUMBER}?text=${waMsg}`,'_blank');
+  closeOrder();
+  document.getElementById('successMsg').textContent=`Thank you, ${name}! WhatsApp opened with your order. We'll confirm within 2–4 hours.`;
+  document.getElementById('successOrderId').textContent=orderId;
+  document.getElementById('waLink').href=`https://wa.me/${WA_NUMBER}?text=${waMsg}`;
+  document.getElementById('successModal').classList.add('open');
+  cart=[]; updateCartUI();
+}
+
+function updateWAOrderLink() {
+  const name=document.getElementById('fname').value.trim();
+  const product=document.getElementById('fproduct').value;
+  const qty=document.getElementById('fqty').value||1;
+  const address=document.getElementById('faddress').value.trim();
+  const notes=document.getElementById('fnotes').value.trim();
+  const cartSummary=cart.length?cart.map(i=>`${i.name} x${i.qty} = ₹${i.price*i.qty}`).join(', '):`${product} x${qty}`;
+  const msg=encodeURIComponent(`Hi Ragsnation! I'd like to place an order.\n\n👤 Name: ${name||'[my name]'}\n📦 Order: ${cartSummary}\n📍 Address: ${address||'[my address in Nagpur]'}\n📝 Notes: ${notes||'None'}`);
+  document.getElementById('waOrderBtn').href=`https://wa.me/${WA_NUMBER}?text=${msg}`;
+}
+
+function selectPay(el,val) {
+  document.querySelectorAll('.pay-opt').forEach(o=>o.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('fpayment').value=val;
+  document.getElementById('upiPaySection').style.display=val==='UPI / GPay'?'block':'none';
+  document.getElementById('bankPaySection').style.display=val==='Bank Transfer'?'block':'none';
+}
+function copyUPI(){navigator.clipboard.writeText(UPI_ID).then(()=>alert('UPI ID copied: '+UPI_ID));}
+
+// ═══ DESIGN UPLOAD ═══
+function handleDesignUpload(e) {
+  const file=e.target.files[0];if(!file)return;
+  designFileName=file.name;
+  if(file.type.startsWith('image/')) {
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      designFileData=ev.target.result;
+      document.getElementById('designPreviewImg').src=designFileData;
+      document.getElementById('designFileName').textContent='📎 '+designFileName;
+      document.getElementById('designPreviewWrap').style.display='block';
+      document.getElementById('designUploadArea').querySelector('p').textContent='✓ '+designFileName+' — click to change';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    designFileData=null;
+    document.getElementById('designFileName').textContent='📎 '+designFileName+' (PDF — will be sent via WhatsApp)';
+    document.getElementById('designPreviewWrap').style.display='block';
+    document.getElementById('designUploadArea').querySelector('p').textContent='✓ '+designFileName;
+  }
+}
+
+
+function closeSuccess(){document.getElementById('successModal').classList.remove('open');}
+function copySuccessId(){navigator.clipboard.writeText(document.getElementById('successOrderId').textContent).then(()=>alert('Order ID copied!'));}
+
+// ═══ ORDER TRACKER ═══
+const STATUS_STEPS=['Order Placed','Confirmed','Printing','Quality Check','Dispatched','Delivered'];
+
+function openTracker(){document.getElementById('trackerModal').classList.add('open');document.getElementById('trackerResult').style.display='none';document.getElementById('trackerNotFound').style.display='none';}
+function closeTracker(){document.getElementById('trackerModal').classList.remove('open');}
+
+function doTrackOrder() {
+  const id=document.getElementById('trackInput').value.trim().toUpperCase();
+  if(!id){alert('Please enter an Order ID.');return;}
+  const orders=getOrders();
+  const order=orders.find(o=>o.id.toUpperCase()===id);
+  if(!order){
+    document.getElementById('trackerResult').style.display='none';
+    document.getElementById('trackerNotFound').style.display='block';
+    return;
+  }
+  renderTrackerResult(order);
+}
+
+function renderTrackerResult(order) {
+  document.getElementById('trackerNotFound').style.display='none';
+  document.getElementById('trackerResult').style.display='block';
+  document.getElementById('trackerOrderId').textContent=order.id;
+  document.getElementById('trackerOrderMeta').textContent=`${order.product} · Ordered ${order.date} · ${order.address}`;
+
+  const currentIdx=STATUS_STEPS.indexOf(order.status);
+  const lastHistoryNote=(order.statusHistory||[]).slice(-1)[0]?.note||'';
+
+  document.getElementById('trackerSteps').innerHTML=STATUS_STEPS.map((s,i)=>{
+    const done=i<currentIdx;const active=i===currentIdx;
+    const hist=(order.statusHistory||[]).find(h=>h.status===s);
+    return `<div class="track-step">
+      <div class="track-step-wrap" style="display:flex;align-items:flex-start;gap:1rem;">
+        <div class="track-dot ${done?'done':active?'active':''}"></div>
+        <div>
+          <p class="track-label" style="color:${active?'var(--gold)':done?'var(--chalk)':'var(--mid)'}">${s}</p>
+          ${hist?.note?`<p class="track-sub">${hist.note}</p>`:''}
+          ${hist?.date?`<p class="track-sub">${hist.date}</p>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function copyOrderId(){
+  const id=document.getElementById('trackerOrderId').textContent;
+  navigator.clipboard.writeText(id).then(()=>alert('Order ID copied: '+id));
+}
+
+// ═══ ADMIN ORDER TRACKER ═══
+function adminLoadOrder() {
+  const id=document.getElementById('adminTrackId').value.trim().toUpperCase();
+  const order=getOrders().find(o=>o.id.toUpperCase()===id);
+  if(!order){alert('Order not found.');document.getElementById('adminOrderEditor').style.display='none';return;}
+  document.getElementById('adminOrderEditor').style.display='block';
+  document.getElementById('adminOrderIdDisplay').textContent=order.id;
+  document.getElementById('adminOrderNameDisplay').textContent=`${order.name} · ${order.product}`;
+  document.getElementById('adminStatusSelect').value=order.status;
+}
+function adminUpdateStatus() {
+  const id=document.getElementById('adminTrackId').value.trim().toUpperCase();
+  const newStatus=document.getElementById('adminStatusSelect').value;
+  const note=document.getElementById('adminStatusNote').value.trim();
+  const orders=getOrders();
+  const order=orders.find(o=>o.id.toUpperCase()===id);
+  if(!order){alert('Order not found.');return;}
+  order.status=newStatus;
+  order.statusHistory=order.statusHistory||[];
+  if(!order.statusHistory.find(h=>h.status===newStatus)){
+    order.statusHistory.push({status:newStatus,note,date:new Date().toLocaleDateString('en-IN')});
+  } else {
+    const h=order.statusHistory.find(h=>h.status===newStatus);
+    h.note=note||h.note; h.date=new Date().toLocaleDateString('en-IN');
+  }
+  // Update in user orders too
+  const users=getUsers();
+  users.forEach(u=>{
+    if(u.orders){const o=u.orders.find(x=>x.id===id);if(o)o.status=newStatus;}
+  });
+  saveUsers(users);
+  saveOrders(orders);
+  alert(`✓ Status updated to "${newStatus}" for ${id}`);
+  renderAdminOrders();
+}
+let adminOrderFilter='new';
+
+function renderAdminOrders() {
+  const orders=getOrders();
+  const el=document.getElementById('adminAllOrders');
+  const statBar=document.getElementById('orderStatBar');
+  if(!el)return;
+
+  const cats=[
+    {key:'new',    label:'New',        statuses:['Order Placed'],                         color:'#e8390e',bg:'rgba(232,57,14,.12)'},
+    {key:'active', label:'In Progress',statuses:['Confirmed','Printing','Quality Check'],  color:'#d4a017',bg:'rgba(212,160,23,.1)'},
+    {key:'shipped',label:'Dispatched', statuses:['Dispatched'],                            color:'#25D366',bg:'rgba(37,211,102,.08)'},
+    {key:'done',   label:'Delivered',  statuses:['Delivered'],                             color:'#555',   bg:'#1a1a1a'},
+    {key:'all',    label:'All',        statuses:['Order Placed','Confirmed','Printing','Quality Check','Dispatched','Delivered'],color:'#888',bg:'#1a1a1a'},
+  ];
+
+  const statusEmoji={'Order Placed':'🆕','Confirmed':'✅','Printing':'🎨','Quality Check':'🔍','Dispatched':'🚚','Delivered':'📦'};
+  const statusColor={'Order Placed':'#e8390e','Confirmed':'#d4a017','Printing':'#d4a017','Quality Check':'#d4a017','Dispatched':'#25D366','Delivered':'#444'};
+
+  // Clickable filter tabs
+  if(statBar){
+    statBar.innerHTML=cats.map(c=>{
+      const count=orders.filter(o=>c.statuses.includes(o.status)).length;
+      const active=adminOrderFilter===c.key;
+      return `<button onclick="setAdminOrderFilter('${c.key}')" style="background:${active?c.color:c.bg};border:2px solid ${c.color};padding:.35rem .85rem;display:flex;align-items:center;gap:.4rem;cursor:pointer;transition:all .15s;${active?'':'opacity:.65;'}">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:${active?'#fff':c.color};letter-spacing:1px;">${count}</span>
+        <span style="font-size:.68rem;letter-spacing:1px;color:${active?'#fff':c.color};text-transform:uppercase;">${c.label}</span>
+      </button>`;
+    }).join('');
+  }
+
+  const activeCat=cats.find(c=>c.key===adminOrderFilter);
+  const filtered=orders.filter(o=>activeCat.statuses.includes(o.status));
+  const noOrdersEl=document.getElementById('adminNoOrders');
+
+  if(!filtered.length){
+    el.innerHTML='';
+    if(noOrdersEl)noOrdersEl.style.display='block';
+    return;
+  }
+  if(noOrdersEl)noOrdersEl.style.display='none';
+
+  const card=(o)=>{
+    const isNew=o.status==='Order Placed';
+    return `<div style="background:#141414;border:1px solid ${isNew?'#e8390e':'#222'};${isNew?'box-shadow:0 0 8px rgba(232,57,14,.12);':''}padding:1rem;margin-bottom:.6rem;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem;">
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--gold);">${o.id}</span>
+          <span style="background:${statusColor[o.status]||'#555'};color:#fff;font-size:.62rem;padding:2px 8px;letter-spacing:1px;font-weight:700;">${statusEmoji[o.status]||''} ${o.status.toUpperCase()}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+          <span style="font-size:.8rem;color:var(--mid);">${o.name} · ${o.date}${o.phone?` · <a href="https://wa.me/91${o.phone.replace(/\D/g,'')}" target="_blank" style="color:#25D366;text-decoration:none;">💬 ${o.phone}</a>`:''}</span>
+          <button onclick="deleteOrder('${o.id}')" style="background:none;border:1px solid #333;color:#555;padding:2px 7px;cursor:pointer;font-size:.72rem;" onmouseover="this.style.color='#e8390e';this.style.borderColor='#e8390e'" onmouseout="this.style.color='#555';this.style.borderColor='#333'">🗑 DELETE</button>
+        </div>
+      </div>
+      <p style="font-size:.82rem;color:var(--mid);margin-bottom:.4rem;">${o.product}${o.total?` · <strong style="color:var(--gold);">₹${o.total}</strong>`:''}</p>
+      ${o.address?`<p style="font-size:.73rem;color:#555;margin-bottom:.45rem;">📍 ${o.address}</p>`:''}
+      <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;">
+        <select class="status-select" id="qs-${o.id}" style="font-size:.8rem;padding:.3rem .6rem;">
+          ${['Order Placed','Confirmed','Printing','Quality Check','Dispatched','Delivered'].map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${statusEmoji[s]} ${s}</option>`).join('')}
+        </select>
+        <button class="status-update-btn" onclick="quickUpdateStatus('${o.id}')" style="padding:.3rem .9rem;font-size:.8rem;">UPDATE</button>
+      </div>
+    </div>`;
+  };
+
+  // For 'all' tab, group by category
+  if(adminOrderFilter==='all'){
+    let html='';
+    cats.filter(c=>c.key!=='all').forEach(c=>{
+      const sub=orders.filter(o=>c.statuses.includes(o.status));
+      if(!sub.length)return;
+      html+=`<div style="margin-bottom:1.5rem;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:2px;color:${c.color};border-bottom:1px solid ${c.color};padding-bottom:.3rem;margin-bottom:.6rem;">${c.label} (${sub.length})</div>
+        ${sub.map(card).join('')}
+      </div>`;
+    });
+    el.innerHTML=html;
+  } else {
+    el.innerHTML=filtered.map(card).join('');
+  }
+}
+
+function setAdminOrderFilter(key){ adminOrderFilter=key; renderAdminOrders(); }
+
+function deleteOrder(id){
+  if(!confirm(`Delete order ${id}? This cannot be undone.`))return;
+  saveOrders(getOrders().filter(o=>o.id!==id));
+  renderAdminOrders();
+}
+
+function quickUpdateStatus(id) {
+  const select=document.getElementById('qs-'+id);
+  if(!select)return;
+  const newStatus=select.value;
+  const orders=getOrders();
+  const order=orders.find(o=>o.id===id);
+  if(!order)return;
+  order.status=newStatus;
+  order.statusHistory=order.statusHistory||[];
+  if(!order.statusHistory.find(h=>h.status===newStatus)){
+    order.statusHistory.push({status:newStatus,note:'',date:new Date().toLocaleDateString('en-IN')});
+  }
+  const users=getUsers();
+  users.forEach(u=>{if(u.orders){const o=u.orders.find(x=>x.id===id);if(o)o.status=newStatus;}});
+  saveUsers(users);saveOrders(orders);
+  renderAdminOrders(); // refresh immediately — no more stale view
+}
+
+// ═══ REVIEWS ═══
+let reviewStarVal=0;
+function setReviewStar(n){
+  reviewStarVal=n;
+  document.querySelectorAll('.star-btn').forEach((b,i)=>{b.classList.toggle('lit',i<n);});
+}
+function openReviewModal(){document.getElementById('reviewModal').classList.add('open');}
+function closeReviewModal(){document.getElementById('reviewModal').classList.remove('open');}
+function submitReview(){
+  const name=document.getElementById('revName').value.trim();
+  const product=document.getElementById('revProduct').value.trim();
+  const text=document.getElementById('revText').value.trim();
+  if(!name||!text||!reviewStarVal){alert('Please fill in your name, review, and rating.');return;}
+  const reviews=getReviews();
+  reviews.unshift({
+    id:Date.now(),name,product:product||'General Service',
+    rating:reviewStarVal,text,
+    date:new Date().toLocaleString('en-IN',{month:'short',year:'numeric'}),
+    approved:false
+  });
+  saveReviews(reviews);
+  closeReviewModal();
+  alert('Thank you for your review! It will be published on the website once approved by our team (usually within 24 hours).');
+  document.getElementById('revName').value='';document.getElementById('revProduct').value='';document.getElementById('revText').value='';
+  setReviewStar(0);
+}
+function renderReviews(){
+  const revs=getReviews().filter(r=>r.approved);
+  if(!revs.length){document.getElementById('reviewsGrid').innerHTML='<p class="empty-state" style="text-align:left;padding:1rem;">No reviews yet — be the first!</p>';
+    document.getElementById('overallRatingNum').textContent='–';document.getElementById('reviewCount').textContent='No reviews yet';
+    document.getElementById('ratingBreakdown').innerHTML='';return;}
+  const avg=revs.reduce((s,r)=>s+r.rating,0)/revs.length;
+  document.getElementById('overallRatingNum').textContent=avg.toFixed(1);
+  document.getElementById('overallStars').textContent='★'.repeat(Math.round(avg))+'☆'.repeat(5-Math.round(avg));
+  document.getElementById('reviewCount').textContent=`Based on ${revs.length} review${revs.length!==1?'s':''}`;
+  // Breakdown
+  let breakdown='';
+  for(let s=5;s>=1;s--){
+    const cnt=revs.filter(r=>r.rating===s).length;
+    const pct=Math.round(cnt/revs.length*100)||0;
+    breakdown+=`<div class="rating-bar-row"><span>${s}★</span><div class="rating-bar-bg"><div class="rating-bar-fill" style="width:${pct}%"></div></div><span style="color:var(--mid);font-size:.75rem;">${cnt}</span></div>`;
+  }
+  document.getElementById('ratingBreakdown').innerHTML=breakdown;
+  document.getElementById('reviewsGrid').innerHTML=revs.slice(0,6).map(r=>`
+    <div class="review-card">
+      <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+      <p class="review-text">"${r.text}"</p>
+      <p class="review-author">${r.name}</p>
+      <p class="review-product">${r.product} · ${r.date}</p>
+    </div>`).join('');
+}
+function renderAdminReviews(){
+  const revs=getReviews();
+  const el=document.getElementById('adminReviewsList');if(!el)return;
+  const pending=revs.filter(r=>!r.approved).length;
+
+  // Update pending note
+  const noteEl=document.getElementById('pendingReviewsNote');
+  if(noteEl){
+    noteEl.innerHTML=pending>0
+      ?`<span style="background:rgba(232,57,14,.15);border:1px solid var(--fire);color:var(--fire);padding:.3rem .8rem;font-size:.8rem;letter-spacing:1px;">⚠ ${pending} review${pending>1?'s':''} waiting for your approval</span>`
+      :`<span style="color:#555;">All reviews approved ✓</span>`;
+  }
+
+  // Update Reviews tab label with badge
+  const reviewTab=document.querySelector('[onclick="switchAdminTab(\'reviews\')"]');
+  if(reviewTab){
+    reviewTab.textContent='REVIEWS'+(pending>0?` (${pending} pending)`:'');
+    reviewTab.style.color=pending>0?'var(--fire)':'';
+  }
+
+  if(!revs.length){el.innerHTML='<p style="color:var(--mid);font-size:.9rem;">No reviews yet.</p>';return;}
+  el.innerHTML=revs.map(r=>`
+    <div class="tracker-admin-item" style="margin-bottom:.8rem;${!r.approved?'border-color:var(--fire);':''}">
+      <div class="tracker-admin-top">
+        <span style="font-weight:600;color:var(--gold);">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)} &nbsp;${r.name}</span>
+        <span style="font-size:.75rem;color:${r.approved?'#25D366':'var(--fire)'};">${r.approved?'✓ Published':'⏳ Awaiting Approval'}</span>
+      </div>
+      <p style="font-size:.85rem;color:var(--mid);margin-bottom:.3rem;">${r.product} · ${r.date}</p>
+      <p style="font-size:.9rem;font-style:italic;margin-bottom:.6rem;">"${r.text}"</p>
+      <div style="display:flex;gap:.8rem;margin-top:.4rem;">
+        ${!r.approved?`<button class="status-update-btn" onclick="approveReview(${r.id})">✓ APPROVE & PUBLISH</button>`:'<span style="font-size:.75rem;color:#25D366;">✓ Live on website</span>'}
+        <button onclick="deleteReview(${r.id})" style="background:none;border:1px solid #333;color:#555;padding:.3rem .8rem;cursor:pointer;font-size:.8rem;" onmouseover="this.style.color='#e8390e';this.style.borderColor='#e8390e'" onmouseout="this.style.color='#555';this.style.borderColor='#333'">🗑 DELETE</button>
+      </div>
+    </div>`).join('');
+}
+function approveReview(id){
+  const revs=getReviews();const r=revs.find(x=>x.id===id);if(r)r.approved=true;
+  saveReviews(revs);renderAdminReviews();renderReviews();
+}
+function deleteReview(id){
+  if(!confirm('Delete this review?'))return;
+  saveReviews(getReviews().filter(r=>r.id!==id));renderAdminReviews();renderReviews();
+}
+
+// ═══ AUTH ═══
+function handleUserNav(){if(isAdmin){showPage('admin');return;}if(currentUser){showPage('account');return;}openAuth();}
+function openAuth(){document.getElementById('authModal').classList.add('open');}
+function closeAuth(){document.getElementById('authModal').classList.remove('open');}
+function switchTab(tab){
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f=>f.classList.remove('active'));
+  document.querySelectorAll('.auth-tab')[tab==='login'?0:1].classList.add('active');
+  document.getElementById(tab==='login'?'tabLogin':'tabRegister').classList.add('active');
+}
+function doLogin(){
+  const email=document.getElementById('lEmail').value.trim();
+  const pass=document.getElementById('lPass').value;
+  if(email===ADMIN_USER&&pass===ADMIN_PASS){isAdmin=true;closeAuth();updateNavUser();showPage('admin');return;}
+  const users=getUsers();const user=users.find(u=>u.email===email&&u.password===pass);
+  if(!user){alert('Incorrect email or password.');return;}
+  currentUser=user;closeAuth();updateNavUser();showPage('account');
+}
+function doRegister(){
+  const name=document.getElementById('rName').value.trim();
+  const email=document.getElementById('rEmail').value.trim();
+  const phone=document.getElementById('rPhone').value.trim();
+  const pass=document.getElementById('rPass').value;
+  if(!name||!email||!pass){alert('Please fill all required fields.');return;}
+  const users=getUsers();
+  if(users.find(u=>u.email===email)){alert('Account with this email already exists.');return;}
+  const user={name,email,phone,password:pass,orders:[]};
+  users.push(user);saveUsers(users);currentUser=user;
+  closeAuth();updateNavUser();showPage('account');
+}
+function userLogout(){currentUser=null;updateNavUser();showPage('home');}
+function updateNavUser(){
+  const btn=document.getElementById('navUserBtn');
+  if(isAdmin){btn.textContent='⚙ ADMIN';btn.style.color='var(--fire)';}
+  else if(currentUser){btn.textContent=currentUser.name.split(' ')[0].toUpperCase();btn.style.color='var(--gold)';}
+  else{btn.textContent='ACCOUNT';btn.style.color='';}
+}
+function renderAccount(){
+  if(!currentUser){showPage('home');return;}
+  document.getElementById('accName').textContent=currentUser.name.toUpperCase();
+  document.getElementById('accEmail').textContent=currentUser.email+(currentUser.phone?' · '+currentUser.phone:'');
+  const orders=currentUser.orders||[];
+  // Sync status from orders store
+  const allOrders=getOrders();
+  const statusMap={};allOrders.forEach(o=>statusMap[o.id]=o.status);
+  const statusClass={Placed:'status-placed',Confirmed:'status-confirmed',Printing:'status-printing',Dispatched:'status-dispatched',Delivered:'status-delivered'};
+  document.getElementById('accOrders').innerHTML=orders.length
+    ? orders.map(o=>{
+        const liveStatus=statusMap[o.id]||o.status||'Order Placed';
+        const cls=Object.keys(statusClass).find(k=>liveStatus.includes(k))||'Placed';
+        return `<div class="order-card">
+          <div class="order-card-top">
+            <span class="order-id">#${o.id} · ${o.date}</span>
+            <span class="order-status-badge status-${cls.toLowerCase()}">${liveStatus}</span>
+          </div>
+          <p class="order-items">${o.items}</p>
+          <p class="order-total">${o.total?'₹'+o.total:'Quote Pending'}</p>
+          <button class="track-order-btn" onclick="openTrackerForOrder('${o.id}')">📦 TRACK THIS ORDER</button>
+        </div>`;
+      }).join('')
+    : '<p style="color:var(--mid);font-size:.9rem;">No orders yet. Start shopping!</p>';
+}
+function openTrackerForOrder(id){
+  closeAuth();
+  document.getElementById('trackerModal').classList.add('open');
+  document.getElementById('trackInput').value=id;
+  doTrackOrder();
+}
+
+// ═══ ADMIN ═══
+function doAdminLogin(){
+  if(document.getElementById('aUser').value===ADMIN_USER&&document.getElementById('aPass').value===ADMIN_PASS){
+    isAdmin=true;document.getElementById('adminAuthModal').classList.remove('open');updateNavUser();showPage('admin');
+  }else alert('Wrong credentials.');
+}
+function adminLogout(){isAdmin=false;updateNavUser();showPage('home');}
+function switchAdminTab(tab){
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('admin-'+tab).classList.add('active');
+  if(tab==='orders')renderAdminOrders();
+  if(tab==='reviews')renderAdminReviews();
+}
+function handleAdminImg(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{adminImgData=ev.target.result;document.getElementById('imgUploadArea').innerHTML=`<img src="${adminImgData}">`;};
+  reader.readAsDataURL(file);
+}
+function toggleAvail(){
+  adminAvail=!adminAvail;
+  const btn=document.getElementById('availBtn');
+  btn.textContent=adminAvail?'✓ VISIBLE TO CUSTOMERS':'✗ HIDDEN FROM CUSTOMERS';
+  btn.classList.toggle('on',adminAvail);
+}
+function adminAddProduct(){
+  const name=document.getElementById('aName').value.trim();
+  if(!name){alert('Product name is required.');return;}
+  const prods=getProducts();
+  const newId=Math.max(0,...prods.map(p=>p.id))+1;
+  const price=document.getElementById('aPrice').value;
+  prods.push({id:newId,emoji:'📦',img:adminImgData||null,name,
+    desc:document.getElementById('aDesc').value.trim()||'Premium sublimation print.',
+    price:price?parseInt(price):null,
+    category:document.getElementById('aCat').value,
+    badge:document.getElementById('aBadge').value.trim()||null,available:adminAvail});
+  saveProducts(prods);
+  document.getElementById('aName').value='';document.getElementById('aDesc').value='';
+  document.getElementById('aPrice').value='';document.getElementById('aBadge').value='';
+  document.getElementById('imgUploadArea').innerHTML='<span>📷 Click to upload product image</span>';
+  adminImgData=null;adminAvail=true;
+  document.getElementById('availBtn').textContent='✓ VISIBLE TO CUSTOMERS';
+  document.getElementById('availBtn').classList.add('on');
+  renderAdminList();
+}
+function adminDelete(id){if(!confirm('Delete this product?'))return;saveProducts(getProducts().filter(p=>p.id!==id));renderAdminList();}
+function adminToggle(id){const prods=getProducts();const p=prods.find(x=>x.id===id);if(p)p.available=!p.available;saveProducts(prods);renderAdminList();}
+function renderAdminList(){
+  const prods=getProducts();
+  document.getElementById('adminCount').textContent=`(${prods.length})`;
+  document.getElementById('adminList').innerHTML=prods.length
+    ?prods.map(p=>`<div class="admin-item">
+        <div class="admin-thumb">${p.img?`<img src="${p.img}">`:(p.emoji||'📦')}</div>
+        <div class="admin-item-info">
+          <p class="admin-item-name">${p.name}</p>
+          <p class="admin-item-price">${p.price?'₹'+p.price:'Quote'} · ${p.category}</p>
+          <p class="admin-item-status">${p.available?'✓ Visible':'✗ Hidden'}</p>
+        </div>
+        <button class="toggle-btn ${p.available?'on':''}" onclick="adminToggle(${p.id})">${p.available?'HIDE':'SHOW'}</button>
+        <button class="admin-del" onclick="adminDelete(${p.id})">🗑</button>
+      </div>`).join('')
+    :'<p style="color:var(--mid);font-size:.9rem;">No products yet.</p>';
+}
+
+// Secret admin: 5 quick logo clicks
+let lc=0,lt;
+document.querySelectorAll('.logo').forEach(el=>el.addEventListener('click',()=>{lc++;clearTimeout(lt);lt=setTimeout(()=>lc=0,2000);if(lc>=5){lc=0;document.getElementById('adminAuthModal').classList.add('open');}}));
+
+// ═══ REFUND ═══
+function openRefundPolicy(){document.getElementById('refundPolicyModal').classList.add('open');}
+function openRefundRequest(){document.getElementById('refundRequestModal').classList.add('open');}
+
+function submitRefundRequest(){
+  const name=document.getElementById('rfName').value.trim();
+  const orderId=document.getElementById('rfOrderId').value.trim();
+  const phone=document.getElementById('rfPhone').value.trim();
+  const reason=document.getElementById('rfReason').value;
+  const details=document.getElementById('rfDetails').value.trim();
+  if(!name||!orderId||!phone||!reason){alert('Please fill in all required fields.');return;}
+  const msg=encodeURIComponent(
+    `*Refund Request — Ragsnation*\n\n*Name:* ${name}\n*Order ID:* ${orderId}\n*Phone:* ${phone}\n*Reason:* ${reason}\n*Details:* ${details||'None'}`
+  );
+  window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
+  document.getElementById('refundRequestModal').classList.remove('open');
+  alert('Your refund request has been sent to WhatsApp. We\'ll respond within 24 hours!');
+  document.getElementById('rfName').value='';
+  document.getElementById('rfOrderId').value='';
+  document.getElementById('rfPhone').value='';
+  document.getElementById('rfReason').value='';
+  document.getElementById('rfDetails').value='';
+}
+
+// ═══ INIT ═══
+renderFeatured();renderReviews();updateCartUI();
+</script>
+</body>
+</html>
