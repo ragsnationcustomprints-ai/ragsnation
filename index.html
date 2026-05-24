@@ -1000,7 +1000,9 @@ const WA_NUMBER = '917498065005';
 const UPI_ID = 'ragsnation@axl';
 
 // ── Paste your Google Apps Script Web App URL here after setup ──
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaS971uLUmwbMPtpz-ltsoGLWfj1e-Qp1_atAgf9z5naDtT8ZgIa_h7-IVyjy2-q_M/exec';
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+// Same URL used for reading orders (doGet) and status updates
+const SHEET_READ_URL  = APPS_SCRIPT_URL;
 
 // ═══ STATE ═══
 let cart=[], currentUser=null, isAdmin=false, adminImgData=null, adminAvail=true, activeFilter='All';
@@ -1046,7 +1048,7 @@ function showPage(page) {
   window.scrollTo(0,0);
   if(page==='shop') renderShop();
   else if(page==='home') {renderFeatured();renderReviews();}
-  else if(page==='admin') {renderAdminList();renderAdminOrders();renderAdminReviews();}
+  else if(page==='admin') {renderAdminList();loadAdminOrders();renderAdminReviews();}
   else if(page==='account') renderAccount();
 }
 function navScroll(id) {
@@ -1591,23 +1593,6 @@ function deleteOrder(id){
   renderAdminOrders();
 }
 
-function quickUpdateStatus(id) {
-  const select=document.getElementById('qs-'+id);
-  if(!select)return;
-  const newStatus=select.value;
-  const orders=getOrders();
-  const order=orders.find(o=>o.id===id);
-  if(!order)return;
-  order.status=newStatus;
-  order.statusHistory=order.statusHistory||[];
-  if(!order.statusHistory.find(h=>h.status===newStatus)){
-    order.statusHistory.push({status:newStatus,note:'',date:new Date().toLocaleDateString('en-IN')});
-  }
-  const users=getUsers();
-  users.forEach(u=>{if(u.orders){const o=u.orders.find(x=>x.id===id);if(o)o.status=newStatus;}});
-  saveUsers(users);saveOrders(orders);
-  renderAdminOrders(); // refresh immediately — no more stale view
-}
 
 // ═══ REVIEWS ═══
 let reviewStarVal=0;
@@ -1785,8 +1770,70 @@ function switchAdminTab(tab){
   document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
   event.target.classList.add('active');
   document.getElementById('admin-'+tab).classList.add('active');
-  if(tab==='orders')renderAdminOrders();
+  if(tab==='orders')loadAdminOrders();
   if(tab==='reviews')renderAdminReviews();
+}
+
+// ── Load orders: Sheet first, localStorage fallback ──
+function loadAdminOrders(){
+  const el=document.getElementById('adminAllOrders');
+  const noEl=document.getElementById('adminNoOrders');
+  if(!el)return;
+
+  if(!SHEET_READ_URL||SHEET_READ_URL==='YOUR_APPS_SCRIPT_URL_HERE'){
+    // No Sheet configured — use localStorage only
+    renderAdminOrders();
+    return;
+  }
+
+  el.innerHTML='<p style="color:var(--mid);font-size:.85rem;padding:1rem 0;">⏳ Loading orders from all devices...</p>';
+
+  fetch(SHEET_READ_URL)
+    .then(r=>r.json())
+    .then(sheetOrders=>{
+      if(!Array.isArray(sheetOrders)||sheetOrders.error){
+        renderAdminOrders(); return; // fallback
+      }
+      // Merge: Sheet is source of truth; also merge any local-only orders not yet in sheet
+      const localOrders=getOrders();
+      const sheetIds=new Set(sheetOrders.map(o=>o.id));
+      const localOnly=localOrders.filter(o=>!sheetIds.has(o.id));
+      const merged=[...sheetOrders,...localOnly];
+      // Save merged back to localStorage so offline works
+      saveOrders(merged);
+      renderAdminOrders();
+    })
+    .catch(()=>renderAdminOrders()); // fallback to localStorage silently
+}
+
+function quickUpdateStatus(id) {
+  const select=document.getElementById('qs-'+id);
+  if(!select)return;
+  const newStatus=select.value;
+
+  // Update localStorage
+  const orders=getOrders();
+  const order=orders.find(o=>o.id===id);
+  if(!order)return;
+  order.status=newStatus;
+  order.statusHistory=order.statusHistory||[];
+  if(!order.statusHistory.find(h=>h.status===newStatus)){
+    order.statusHistory.push({status:newStatus,note:'',date:new Date().toLocaleDateString('en-IN')});
+  }
+  const users=getUsers();
+  users.forEach(u=>{if(u.orders){const o=u.orders.find(x=>x.id===id);if(o)o.status=newStatus;}});
+  saveUsers(users);saveOrders(orders);
+
+  // Push to Sheet (if configured)
+  if(SHEET_READ_URL&&SHEET_READ_URL!=='YOUR_APPS_SCRIPT_URL_HERE'){
+    fetch(SHEET_READ_URL,{
+      method:'POST',
+      body:JSON.stringify({action:'updateStatus',orderId:id,status:newStatus}),
+      mode:'no-cors'
+    }).catch(err=>console.warn('Sheet status update failed:',err));
+  }
+
+  renderAdminOrders();
 }
 function handleAdminImg(e){
   const file=e.target.files[0];if(!file)return;
