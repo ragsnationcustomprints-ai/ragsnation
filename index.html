@@ -1545,25 +1545,34 @@ function renderAdminOrders() {
   if(noOrdersEl)noOrdersEl.style.display='none';
 
   const card=(o)=>{
-    const isNew=o.status==='Order Placed';
+    // Coerce Sheet values (numbers) to strings
+    const id=String(o.id||'');
+    const name=String(o.name||'');
+    const phone=String(o.phone||'');
+    const date=String(o.date||'');
+    const product=String(o.product||'');
+    const total=String(o.total||'');
+    const address=String(o.address||'');
+    const status=String(o.status||'Order Placed');
+    const isNew=status==='Order Placed';
     return `<div style="background:#141414;border:1px solid ${isNew?'#e8390e':'#222'};${isNew?'box-shadow:0 0 8px rgba(232,57,14,.12);':''}padding:1rem;margin-bottom:.6rem;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem;">
         <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--gold);">${o.id}</span>
-          <span style="background:${statusColor[o.status]||'#555'};color:#fff;font-size:.62rem;padding:2px 8px;letter-spacing:1px;font-weight:700;">${statusEmoji[o.status]||''} ${o.status.toUpperCase()}</span>
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--gold);">${id}</span>
+          <span style="background:${statusColor[status]||'#555'};color:#fff;font-size:.62rem;padding:2px 8px;letter-spacing:1px;font-weight:700;">${statusEmoji[status]||''} ${status.toUpperCase()}</span>
         </div>
         <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
-          <span style="font-size:.8rem;color:var(--mid);">${o.name} · ${o.date}${o.phone?` · <a href="https://wa.me/91${o.phone.replace(/\D/g,'')}" target="_blank" style="color:#25D366;text-decoration:none;">💬 ${o.phone}</a>`:''}</span>
-          <button onclick="deleteOrder('${o.id}')" style="background:none;border:1px solid #333;color:#555;padding:2px 7px;cursor:pointer;font-size:.72rem;" onmouseover="this.style.color='#e8390e';this.style.borderColor='#e8390e'" onmouseout="this.style.color='#555';this.style.borderColor='#333'">🗑 DELETE</button>
+          <span style="font-size:.8rem;color:var(--mid);">${name} · ${date}${phone?` · <a href="https://wa.me/91${phone.replace(/\D/g,'')}" target="_blank" style="color:#25D366;text-decoration:none;">💬 ${phone}</a>`:''}</span>
+          <button onclick="deleteOrder('${id}')" style="background:none;border:1px solid #333;color:#555;padding:2px 7px;cursor:pointer;font-size:.72rem;" onmouseover="this.style.color='#e8390e';this.style.borderColor='#e8390e'" onmouseout="this.style.color='#555';this.style.borderColor='#333'">🗑 DELETE</button>
         </div>
       </div>
-      <p style="font-size:.82rem;color:var(--mid);margin-bottom:.4rem;">${o.product}${o.total?` · <strong style="color:var(--gold);">₹${o.total}</strong>`:''}</p>
-      ${o.address?`<p style="font-size:.73rem;color:#555;margin-bottom:.45rem;">📍 ${o.address}</p>`:''}
+      <p style="font-size:.82rem;color:var(--mid);margin-bottom:.4rem;">${product}${total?` · <strong style="color:var(--gold);">₹${total}</strong>`:''}</p>
+      ${address?`<p style="font-size:.73rem;color:#555;margin-bottom:.45rem;">📍 ${address}</p>`:''}
       <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;">
-        <select class="status-select" id="qs-${o.id}" style="font-size:.8rem;padding:.3rem .6rem;">
-          ${['Order Placed','Confirmed','Printing','Quality Check','Dispatched','Delivered'].map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${statusEmoji[s]} ${s}</option>`).join('')}
+        <select class="status-select" id="qs-${id}" style="font-size:.8rem;padding:.3rem .6rem;">
+          ${['Order Placed','Confirmed','Printing','Quality Check','Dispatched','Delivered'].map(s=>`<option value="${s}" ${s===status?'selected':''}>${statusEmoji[s]} ${s}</option>`).join('')}
         </select>
-        <button class="status-update-btn" onclick="quickUpdateStatus('${o.id}')" style="padding:.3rem .9rem;font-size:.8rem;">UPDATE</button>
+        <button class="status-update-btn" onclick="quickUpdateStatus('${id}')" style="padding:.3rem .9rem;font-size:.8rem;">UPDATE</button>
       </div>
     </div>`;
   };
